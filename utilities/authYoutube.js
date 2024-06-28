@@ -1,4 +1,5 @@
 const path = require("path");
+const express = require("express");
 const { PORT, TOKENS, SCOPES } = require("./constants");
 const {
   getFileContentAsJSON,
@@ -8,6 +9,8 @@ const {
 const { google } = require("googleapis");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
+const app = express();
+let server;
 const oAuth2Client = new google.auth.OAuth2(
   process.env.YOUTUBE_CLIENT_ID,
   process.env.YOUTUBE_CLIENT_SECRET,
@@ -25,7 +28,7 @@ function _loadTokens() {
   );
 }
 
-async function _authenticate(app) {
+async function _authenticate() {
   return new Promise(async (resolve, reject) => {
     const open = (await import("open")).default;
     app.get("/oauth2callback", async (req, res) => {
@@ -36,7 +39,9 @@ async function _authenticate(app) {
         _saveTokens(tokens);
         res.send("Authentication successful! You can close this window.");
         resolve();
-        // TODO: shutdown server here
+        server.close(() => {
+          console.log("Server closed after authentication.");
+        });
       } catch (error) {
         reject(error);
       }
@@ -51,20 +56,18 @@ async function _authenticate(app) {
   });
 }
 
-async function initAuth(app) {
+async function initAuth() {
   if (!_loadTokens()) {
     await new Promise((resolve) => {
-      app.listen(PORT, () => {
-        console.log(
-          `Server is running on http://localhost:${PORT}`
-        );
+      server = app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
         console.log(
           "If the browser does not open automatically, please navigate to the above URL."
         );
         resolve();
       });
     });
-    await _authenticate(app);
+    await _authenticate();
   }
 }
 

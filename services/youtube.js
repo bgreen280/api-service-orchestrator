@@ -5,7 +5,7 @@ const Utilities = require("../utilities/index");
 const app = express();
 
 async function getPlaylists() {
-  Utilities.AuthYoutube.initAuth();
+  await Utilities.AuthYoutube.initAuth(app);
   const youtube = google.youtube("v3");
 
   const playlists = [];

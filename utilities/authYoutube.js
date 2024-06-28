@@ -51,12 +51,12 @@ async function _authenticate(app) {
   });
 }
 
-async function initAuth() {
+async function initAuth(app) {
   if (!_loadTokens()) {
     await new Promise((resolve) => {
-      app.listen(Utilities.Constants.PORT, () => {
+      app.listen(PORT, () => {
         console.log(
-          `Server is running on http://localhost:${Utilities.Constants.PORT}`
+          `Server is running on http://localhost:${PORT}`
         );
         console.log(
           "If the browser does not open automatically, please navigate to the above URL."

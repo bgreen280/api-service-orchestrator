@@ -5,21 +5,7 @@ const Utilities = require("../utilities/index");
 const app = express();
 
 async function getPlaylists() {
-  if (!Utilities.AuthYoutube.loadTokens()) {
-    await new Promise((resolve) => {
-      app.listen(Utilities.Constants.PORT, () => {
-        console.log(
-          `Server is running on http://localhost:${Utilities.Constants.PORT}`
-        );
-        console.log(
-          "If the browser does not open automatically, please navigate to the above URL."
-        );
-        resolve();
-      });
-    });
-    await Utilities.AuthYoutube.authenticate(app);
-  }
-
+  Utilities.AuthYoutube.initAuth();
   const youtube = google.youtube("v3");
 
   const playlists = [];

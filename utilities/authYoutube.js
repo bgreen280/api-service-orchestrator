@@ -14,18 +14,18 @@ const oAuth2Client = new google.auth.OAuth2(
   `http://localhost:${PORT}/oauth2callback`
 );
 
-function saveTokens(tokens) {
+function _saveTokens(tokens) {
   setFile(TOKENS, JSON.stringify(tokens));
 }
 
-function loadTokens() {
+function _loadTokens() {
   return (
     isFilePresent(TOKENS) &&
     (oAuth2Client.setCredentials(getFileContentAsJSON(TOKENS)), true)
   );
 }
 
-async function authenticate(app) {
+async function _authenticate(app) {
   return new Promise(async (resolve, reject) => {
     const open = (await import("open")).default;
     app.get("/oauth2callback", async (req, res) => {
@@ -33,7 +33,7 @@ async function authenticate(app) {
       try {
         const { tokens } = await oAuth2Client.getToken(code);
         oAuth2Client.setCredentials(tokens);
-        saveTokens(tokens);
+        _saveTokens(tokens);
         res.send("Authentication successful! You can close this window.");
         resolve();
         // TODO: shutdown server here
@@ -51,9 +51,24 @@ async function authenticate(app) {
   });
 }
 
+async function initAuth() {
+  if (!_loadTokens()) {
+    await new Promise((resolve) => {
+      app.listen(Utilities.Constants.PORT, () => {
+        console.log(
+          `Server is running on http://localhost:${Utilities.Constants.PORT}`
+        );
+        console.log(
+          "If the browser does not open automatically, please navigate to the above URL."
+        );
+        resolve();
+      });
+    });
+    await _authenticate(app);
+  }
+}
+
 module.exports = {
-  saveTokens,
-  loadTokens,
-  authenticate,
+  initAuth,
   oAuth2Client,
 };

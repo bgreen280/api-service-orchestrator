@@ -9,7 +9,7 @@ async function sendRequest(
   params = null
 ) {
   try {
-    let accessToken = Utilities.AuthRaindrop.getAndValidateAccessToken(service);
+    let accessToken = Utilities.AuthRaindrop.initAuth(service);
 
     const config = {
       headers: {

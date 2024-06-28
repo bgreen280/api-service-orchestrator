@@ -2,7 +2,7 @@ const path = require("path");
 const { SERVICES } = require("./constants");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-function getAndValidateAccessToken(service) {
+function initAuth(service) {
   const accessToken = process.env[SERVICES[service]];
   if (!accessToken) {
     throw new Error(
@@ -12,4 +12,4 @@ function getAndValidateAccessToken(service) {
   return accessToken;
 }
 
-module.exports = { getAndValidateAccessToken };
+module.exports = { initAuth };

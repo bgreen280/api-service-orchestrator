@@ -11,6 +11,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
 let server;
+
 const oAuth2Client = new google.auth.OAuth2(
   process.env.YOUTUBE_CLIENT_ID,
   process.env.YOUTUBE_CLIENT_SECRET,
@@ -29,8 +30,9 @@ function _loadTokens() {
 }
 
 async function _authenticate() {
-  return new Promise(async (resolve, reject) => {
-    const open = (await import("open")).default;
+  const open = (await import("open")).default;
+
+  return new Promise((resolve, reject) => {
     app.get("/oauth2callback", async (req, res) => {
       const { code } = req.query;
       try {
@@ -38,11 +40,14 @@ async function _authenticate() {
         oAuth2Client.setCredentials(tokens);
         _saveTokens(tokens);
         res.send("Authentication successful! You can close this window.");
+
         resolve();
         server.close(() => {
           console.log("Server closed after authentication.");
         });
       } catch (error) {
+        res.status(500).send('Authentication failed');
+        console.error("Failed to get token:", error);
         reject(error);
       }
     });
@@ -52,22 +57,31 @@ async function _authenticate() {
       scope: SCOPES,
       include_granted_scopes: true,
     });
+
     console.log(
       `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`
     );
-    open(authUrl);
+    open(authUrl).catch(reject);
   });
 }
 
 async function initAuth() {
   if (!_loadTokens()) {
-    await new Promise((resolve) => {
-      server = app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-        resolve();
-      });
+    server = app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
     });
-    await _authenticate();
+
+    try {
+      await _authenticate();
+    } catch (error) {
+      console.error("Authentication process failed:", error);
+    } finally {
+      if (server) {
+        server.close(() => {
+          console.log("Server closed.");
+        });
+      }
+    }
   }
 }
 

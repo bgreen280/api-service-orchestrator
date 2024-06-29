@@ -52,6 +52,9 @@ async function _authenticate() {
       scope: SCOPES,
       include_granted_scopes: true,
     });
+    console.log(
+      `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`
+    );
     open(authUrl);
   });
 }
@@ -61,9 +64,6 @@ async function initAuth() {
     await new Promise((resolve) => {
       server = app.listen(PORT, () => {
         console.log(`Server is running on http://localhost:${PORT}`);
-        console.log(
-          "If the browser does not open automatically, please navigate to the above URL."
-        );
         resolve();
       });
     });

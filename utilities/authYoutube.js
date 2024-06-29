@@ -46,7 +46,7 @@ async function _authenticate() {
           console.log("Server closed after authentication.");
         });
       } catch (error) {
-        res.status(500).send('Authentication failed');
+        res.status(500).send("Authentication failed");
         console.error("Failed to get token:", error);
         reject(error);
       }

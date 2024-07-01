@@ -1,5 +1,25 @@
 const Utilities = require("../utilities/index");
 
+async function createRaindrop(raindrop) {
+  return Utilities.HelpersNetworkRequest.sendRequest(
+    "raindrop",
+    "post",
+    "raindrop",
+    null,
+    raindrop
+  );
+}
+
+async function createRaindrops(raindrops) {
+  return Utilities.HelpersNetworkRequest.sendRequest(
+    "raindrop",
+    "post",
+    "raindrops",
+    null,
+    raindrops
+  );
+}
+
 async function deleteCollectionById(collectionId) {
   return Utilities.HelpersNetworkRequest.sendRequest(
     "raindrop",
@@ -63,6 +83,15 @@ async function getRaindropsByCollectionId(collectionId) {
   );
 }
 
+async function getRaindropById(raindropId) {
+  return Utilities.HelpersNetworkRequest.sendRequest(
+    "raindrop",
+    "get",
+    "raindrop",
+    raindropId
+  );
+}
+
 async function updateRaindropsByCollectionId(collectionId, params) {
   return Utilities.HelpersNetworkRequest.sendRequest(
     "raindrop",
@@ -73,18 +102,17 @@ async function updateRaindropsByCollectionId(collectionId, params) {
   );
 }
 
-//// custom methods
 async function updateTagsInBulk() {
-  const tags = await getTags(Utilities.Constants.RESOURCES_ID);
+  const tags = await getTags(Utilities.Constants.RAINDROP_RESOURCES_ID);
   const shouldBeUpdated = (element) =>
-    element.parent["$id"] === Utilities.Constants.RESOURCES_ID;
+    element.parent["$id"] === Utilities.Constants.RAINDROP_RESOURCES_ID;
 
   tags.items.forEach(async (element) => {
     if (shouldBeUpdated(element)) {
       const { _id, title } = element;
       const params = {
         tags: [title, "resources"],
-        collectionId: Utilities.Constants.RESOURCES_ID,
+        collectionId: Utilities.Constants.RAINDROP_RESOURCES_ID,
       };
     }
   });
@@ -96,14 +124,14 @@ async function updateTagsInBulk() {
 async function bulkUpdateTagsInCollection() {
   const collections = await getCollections();
   const shouldBeUpdated = (element) =>
-    element.parent["$id"] === Utilities.Constants.RESOURCES_ID;
+    element.parent["$id"] === Utilities.Constants.RAINDROP_RESOURCES_ID;
 
   collections.items.forEach(async (element) => {
     if (shouldBeUpdated(element)) {
       const { _id, title } = element;
       const params = {
         tags: [title, "resources"],
-        collectionId: Utilities.Constants.RESOURCES_ID,
+        collectionId: Utilities.Constants.RAINDROP_RESOURCES_ID,
       };
       await updateRaindropsByCollectionId(_id, params);
       // await deleteCollectionById(_id);
@@ -111,8 +139,35 @@ async function bulkUpdateTagsInCollection() {
   });
 }
 
+function constructRaindropFromYoutubePlaylistItem(
+  playlistTitle,
+  {
+    snippet: {
+      description,
+      title: videoTitle,
+      resourceId: { videoId },
+    },
+  }
+) {
+  return {
+    tags: ["resources", playlistTitle],
+    collection: {
+      $ref: "collections",
+      $id: Utilities.Constants.RAINDROP_RESOURCES_ID,
+      oid: Utilities.Constants.RAINDROP_RESOURCES_ID,
+    },
+    type: "video",
+    title: videoTitle,
+    link: `https://www.youtube.com/watch?v=${videoId}`,
+    excerpt: description,
+  };
+}
+
 module.exports = {
   bulkUpdateTagsInCollection,
+  constructRaindropFromYoutubePlaylistItem,
+  createRaindrop,
+  createRaindrops,
   deleteCollectionById,
   deleteRaindropById,
   getCollectionById,
@@ -122,4 +177,5 @@ module.exports = {
   renameTags,
   updateRaindropsByCollectionId,
   updateTagsInBulk,
+  getRaindropById,
 };

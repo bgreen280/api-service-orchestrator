@@ -1,3 +1,3 @@
 module.exports = {
-  migrateYoutubePlaylistsToRaindrop: require("./migrateYoutubePlaylistsToRaindrop"),
+  migrateYoutubePlaylistItemsToRaindrop: require("./migrateYoutubePlaylistItemsToRaindrop"),
 };

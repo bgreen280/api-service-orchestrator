@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const { PORT, TOKENS, SCOPES } = require("./constants");
+const { PORT, GOOGLE_TOKENS, GOOGLE_SCOPES } = require("./constants");
 const {
   getFileContentAsJSON,
   setFile,
@@ -19,13 +19,13 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 function _saveTokens(tokens) {
-  setFile(TOKENS, JSON.stringify(tokens));
+  setFile(GOOGLE_TOKENS, JSON.stringify(tokens));
 }
 
 function _loadTokens() {
   return (
-    isFilePresent(TOKENS) &&
-    (oAuth2Client.setCredentials(getFileContentAsJSON(TOKENS)), true)
+    isFilePresent(GOOGLE_TOKENS) &&
+    (oAuth2Client.setCredentials(getFileContentAsJSON(GOOGLE_TOKENS)), true)
   );
 }
 
@@ -40,7 +40,6 @@ async function _authenticate() {
         oAuth2Client.setCredentials(tokens);
         _saveTokens(tokens);
         res.send("Authentication successful! You can close this window.");
-
         resolve();
         server.close(() => {
           console.log("Server closed after authentication.");
@@ -54,7 +53,7 @@ async function _authenticate() {
 
     const authUrl = oAuth2Client.generateAuthUrl({
       access_type: "offline",
-      scope: SCOPES,
+      scope: GOOGLE_SCOPES,
       include_granted_scopes: true,
     });
 

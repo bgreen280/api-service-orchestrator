@@ -1,9 +1,11 @@
-const Scripts = require("./scripts/index");
+// const Scripts = require("./scripts/index");
+const Services = require("./services/index");
 
-// TODO: IIFE?
 async function main() {
   try {
-    Scripts.migrateYoutubePlaylistsToRaindrop();
+    // Scripts.migrateYoutubePlaylistsToRaindrop();
+
+    return "complete";
   } catch (error) {
     console.error("Failed to fetch collections:", error.message);
     process.exit(1);

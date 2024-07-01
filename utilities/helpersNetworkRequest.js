@@ -1,5 +1,6 @@
 const axios = require("axios");
-const Utilities = require("./index");
+const { initAuth } = require("./authRaindrop");
+const { ENDPOINTS } = require("./constants");
 
 async function sendRequest(
   service,
@@ -9,7 +10,7 @@ async function sendRequest(
   params = null
 ) {
   try {
-    let accessToken = Utilities.AuthRaindrop.initAuth(service);
+    let accessToken = initAuth(service);
 
     const config = {
       headers: {
@@ -19,17 +20,14 @@ async function sendRequest(
     };
 
     let response;
-    if (method === "put") {
+    if (method === "put" || method === "post") {
       response = await axios[method](
-        Utilities.Constants.ENDPOINTS[service][endpoint](id),
+        ENDPOINTS[service][endpoint](id),
         params,
         config
       );
     } else {
-      response = await axios[method](
-        Utilities.Constants.ENDPOINTS[service][endpoint](id),
-        config
-      );
+      response = await axios[method](ENDPOINTS[service][endpoint](id), config);
     }
 
     return response.data;

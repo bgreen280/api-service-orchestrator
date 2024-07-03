@@ -1,8 +1,20 @@
 const path = require("path");
+const dotenv = require("dotenv");
 const { SERVICES } = require("./statics");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
+// config env
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
+/**
+ * Initialize authentication for the given service.
+ * @param {string} service - The name of the service to authenticate.
+ * @returns {string} - The access token for the specified service.
+ * @throws {Error} - If the access token is not set in the environment variables.
+ */
 function initAuth(service) {
+  if (!service || !SERVICES[service]) {
+    throw new Error(`Service "${service}" is not recognized.`);
+  }
   const accessToken = process.env[SERVICES[service]];
   if (!accessToken) {
     throw new Error(
@@ -12,4 +24,8 @@ function initAuth(service) {
   return accessToken;
 }
 
-module.exports = { initAuth };
+const RaindropAuthModule = {
+  initAuth,
+};
+
+module.exports = { initAuth, RaindropAuthModule };

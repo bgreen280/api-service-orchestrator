@@ -14,7 +14,10 @@ const {
   isFilePresent,
 } = require("./helpersFileSystem");
 const { google } = require("googleapis");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+const dotenv = require("dotenv");
+
+// config env
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
 let server;
@@ -25,10 +28,25 @@ const oAuth2Client = new google.auth.OAuth2(
   `http://localhost:${PORT}/oauth2callback`
 );
 
+// Validate environment variables
+if (!process.env.YOUTUBE_CLIENT_ID || !process.env.YOUTUBE_CLIENT_SECRET) {
+  throw new Error(
+    "Missing required environment variables: YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET"
+  );
+}
+
+/**
+ * Saves OAuth2 tokens to the file system.
+ * @param {Object} tokens - The tokens to save.
+ */
 function _saveTokens(tokens) {
   setFile(TOKENS_PATH, JSON.stringify(tokens));
 }
 
+/**
+ * Loads OAuth2 tokens from the file system and sets them to the OAuth2 client.
+ * @returns {boolean} - True if tokens are loaded, false otherwise.
+ */
 function _loadTokens() {
   return (
     isFilePresent(GOOGLE_TOKENS) &&
@@ -36,6 +54,10 @@ function _loadTokens() {
   );
 }
 
+/**
+ * Handles the OAuth2 authentication process.
+ * @returns {Promise<void>}
+ */
 async function _authenticate() {
   const open = (await import("open")).default;
 
@@ -71,6 +93,10 @@ async function _authenticate() {
   });
 }
 
+/**
+ * Initializes the authentication process.
+ * @returns {Promise<void>}
+ */
 async function initAuth() {
   if (!_loadTokens()) {
     server = app.listen(PORT, () => {
@@ -91,7 +117,13 @@ async function initAuth() {
   }
 }
 
-module.exports = {
+const YoutubeAuthModule = {
   initAuth,
   oAuth2Client,
+};
+
+module.exports = {
+  initAuth: YoutubeAuthModule.initAuth,
+  oAuth2Client: YoutubeAuthModule.oAuth2Client,
+  YoutubeAuthModule,
 };

@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { initAuth } = require("./authRaindrop");
-const { ENDPOINTS } = require("./constants");
+const { ENDPOINTS } = require("./statics");
 
 async function sendRequest(
   service,

@@ -1,5 +1,5 @@
 const path = require("path");
-const { SERVICES } = require("./constants");
+const { SERVICES } = require("./statics");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 function initAuth(service) {

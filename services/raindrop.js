@@ -1,5 +1,6 @@
 const Utilities = require("../utilities/index");
 
+//// NETWORK REQUESTS
 async function createRaindrop(raindrop) {
   return Utilities.HelpersNetworkRequest.sendRequest(
     "raindrop",
@@ -102,17 +103,22 @@ async function updateRaindropsByCollectionId(collectionId, params) {
   );
 }
 
+////
 async function updateTagsInBulk() {
-  const tags = await getTags(Utilities.Constants.RAINDROP_RESOURCES_ID);
+  const tags = await getTags(
+    Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID
+  );
   const shouldBeUpdated = (element) =>
-    element.parent["$id"] === Utilities.Constants.RAINDROP_RESOURCES_ID;
+    element.parent["$id"] ===
+    Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID;
 
   tags.items.forEach(async (element) => {
     if (shouldBeUpdated(element)) {
       const { _id, title } = element;
       const params = {
         tags: [title, "resources"],
-        collectionId: Utilities.Constants.RAINDROP_RESOURCES_ID,
+        collectionId:
+          Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID,
       };
     }
   });
@@ -124,14 +130,16 @@ async function updateTagsInBulk() {
 async function bulkUpdateTagsInCollection() {
   const collections = await getCollections();
   const shouldBeUpdated = (element) =>
-    element.parent["$id"] === Utilities.Constants.RAINDROP_RESOURCES_ID;
+    element.parent["$id"] ===
+    Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID;
 
   collections.items.forEach(async (element) => {
     if (shouldBeUpdated(element)) {
       const { _id, title } = element;
       const params = {
         tags: [title, "resources"],
-        collectionId: Utilities.Constants.RAINDROP_RESOURCES_ID,
+        collectionId:
+          Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID,
       };
       await updateRaindropsByCollectionId(_id, params);
       // await deleteCollectionById(_id);
@@ -153,8 +161,8 @@ function constructRaindropFromYoutubePlaylistItem(
     tags: ["resources", playlistTitle],
     collection: {
       $ref: "collections",
-      $id: Utilities.Constants.RAINDROP_RESOURCES_ID,
-      oid: Utilities.Constants.RAINDROP_RESOURCES_ID,
+      $id: Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID,
+      oid: Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID,
     },
     type: "video",
     title: videoTitle,

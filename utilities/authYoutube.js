@@ -1,6 +1,13 @@
 const path = require("path");
 const express = require("express");
-const { PORT, GOOGLE_TOKENS, GOOGLE_SCOPES } = require("./constants");
+const {
+  CONFIG: { PORT },
+  CONSTANTS: {
+    GOOGLE_CONSTANTS: {
+      GOOGLE: { SCOPES, TOKENS_PATH },
+    },
+  },
+} = require("./statics");
 const {
   getFileContentAsJSON,
   setFile,
@@ -19,7 +26,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 function _saveTokens(tokens) {
-  setFile(GOOGLE_TOKENS, JSON.stringify(tokens));
+  setFile(TOKENS_PATH, JSON.stringify(tokens));
 }
 
 function _loadTokens() {
@@ -53,7 +60,7 @@ async function _authenticate() {
 
     const authUrl = oAuth2Client.generateAuthUrl({
       access_type: "offline",
-      scope: GOOGLE_SCOPES,
+      scope: SCOPES,
       include_granted_scopes: true,
     });
 

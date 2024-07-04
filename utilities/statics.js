@@ -31,6 +31,20 @@ const GOOGLE_CONSTANTS = {
   TOKENS_PATH: path.resolve(__dirname, "../.data/google/google-tokens.json"),
 };
 
+const GOOGLE_FIT_CONSTANTS = {
+  DATA_PATH: path.join(__dirname, "/data/googleFit"),
+  SEARCH_FILTERS: {
+    year: "2023",
+    activity: "MEDITATION",
+  },
+};
+const GOOGLE_FI_CONSTANTS = {
+  DATA_PATH: path.join(__dirname, "/data/googleFi/callData.csv"),
+  SEARCH_FILTERS: {
+    number: "(239) 821-3609",
+  },
+};
+
 const RAINDROP_CONSTANTS = {
   RAINDROP_RESOURCES_ID: 45024462,
   RAINDROP_TEST_ID: 45024438,
@@ -48,6 +62,8 @@ module.exports = {
   SERVICES,
   CONSTANTS: {
     GOOGLE: GOOGLE_CONSTANTS,
+    GOOGLE_FI: GOOGLE_FI_CONSTANTS,
+    GOOGLE_FIT: GOOGLE_FIT_CONSTANTS,
     RAINDROP: RAINDROP_CONSTANTS,
     YOUTUBE: YOUTUBE_CONSTANTS,
   },

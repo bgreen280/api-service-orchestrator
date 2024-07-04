@@ -1,42 +1,45 @@
-//// Imports
-const path = require("path");
 const csvToJson = require("csvtojson");
 const Utilities = require("../utilities/index");
 
-const filePath = path.join(__dirname, "data/googleFi/callData.csv");
-
-// const main = async () => {
-//   const totalTimeOnCallWithPerson = await getTotalTimeOnCallWithPerson(
-//     filePath
-//   );
-//   console.log(totalTimeOnCallWithPerson);
-// };
-
-// main(searchDir, filters);
+// Constants
+const GOOGLE_FI_NUMBER =
+  Utilities.Statics.CONSTANTS.GOOGLE_FI.SEARCH_FILTERS.number;
 
 /**
- * doesn't work as expected
- * hours/minutes/seconds parsing pattern unclear - clarification required
- * @param {*} filePath
- * @returns
+ * Calculate the total time spent on call with a specific person from a CSV file.
+ * The duration in the CSV file should be in the format of "hours:minutes:seconds".
+ *
+ * @param {string} filePath - The path to the CSV file containing call data.
+ * @returns {Promise<string>} - The total time on call in the format "HH:mm:ss".
+ * @throws Will throw an error if the file cannot be read or parsed.
  */
 const getTotalTimeOnCallWithPerson = async (filePath) => {
-  const data = await csvToJson().fromFile(filePath);
-  let totalSeconds = 0;
+  try {
+    const data = await csvToJson().fromFile(filePath);
+    let totalSeconds = 0;
 
-  for (const entry of data) {
-    if (entry.Phone === "(239) 821-3609" && entry.Duration !== "") {
-      const [hours, minutes, seconds = 0] = entry.Duration.split(":");
-      totalSeconds +=
-        parseInt(seconds) +
-        parseInt(minutes * 60) +
-        parseInt(hours * 60 * 60 || 0);
+    for (const entry of data) {
+      if (entry.Phone === GOOGLE_FI_NUMBER && entry.Duration !== "") {
+        const [hours, minutes, seconds] = entry.Duration.split(":").map(Number);
+        totalSeconds +=
+          (seconds || 0) + (minutes || 0) * 60 + (hours || 0) * 3600;
+      }
     }
-  }
 
-  return Utilities.HelpersDateTime.convertSecondsToHours(totalSeconds);
+    return Utilities.HelpersDateTime.convertSecondsToHours(totalSeconds);
+  } catch (error) {
+    throw new Error(
+      `Failed to process the file at ${filePath}: ${error.message}`
+    );
+  }
+};
+
+// Module exports
+const GoogleFiModule = {
+  getTotalTimeOnCallWithPerson,
 };
 
 module.exports = {
-  getTotalTimeOnCallWithPerson,
+  getTotalTimeOnCallWithPerson: GoogleFiModule.getTotalTimeOnCallWithPerson,
+  GoogleFiModule,
 };

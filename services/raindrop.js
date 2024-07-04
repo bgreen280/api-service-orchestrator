@@ -1,110 +1,111 @@
 const Utilities = require("../utilities/index");
+const { CreateServiceClient } = require("../utilities/index");
 
 //// NETWORK REQUESTS
+const raindropClient = CreateServiceClient("raindrop");
+
+/**
+ * Create a new raindrop.
+ * @param {Object} raindrop - The raindrop data to create.
+ * @returns {Promise<Object>} The created raindrop.
+ */
 async function createRaindrop(raindrop) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "post",
-    "raindrop",
-    null,
-    raindrop
-  );
+  return raindropClient.sendRequest("post", "raindrop", null, raindrop);
 }
 
+/**
+ * Create multiple raindrops.
+ * @param {Array<Object>} raindrops - The raindrops data to create.
+ * @returns {Promise<Object>} The created raindrops.
+ */
 async function createRaindrops(raindrops) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "post",
-    "raindrops",
-    null,
-    raindrops
-  );
+  return raindropClient.sendRequest("post", "raindrops", null, raindrops);
 }
 
+/**
+ * Delete a collection by ID.
+ * @param {string} collectionId - The ID of the collection to delete.
+ * @returns {Promise<Object>} The deletion result.
+ */
 async function deleteCollectionById(collectionId) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "delete",
-    "collection",
-    collectionId
-  );
+  return raindropClient.sendRequest("delete", "collection", collectionId);
 }
 
+/**
+ * Delete a raindrop by ID.
+ * @param {string} raindropId - The ID of the raindrop to delete.
+ * @returns {Promise<Object>} The deletion result.
+ */
 async function deleteRaindropById(raindropId) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "delete",
-    "raindrop",
-    raindropId
-  );
+  return raindropClient.sendRequest("delete", "raindrop", raindropId);
 }
 
+/**
+ * Get a collection by ID.
+ * @param {string} collectionId - The ID of the collection to retrieve.
+ * @returns {Promise<Object>} The collection data.
+ */
 async function getCollectionById(collectionId) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "get",
-    "collection",
-    collectionId
-  );
+  return raindropClient.sendRequest("get", "collection", collectionId);
 }
 
+/**
+ * Get all collections.
+ * @returns {Promise<Array<Object>>} The list of collections.
+ */
 async function getCollections() {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "get",
-    "collections"
-  );
+  return raindropClient.sendRequest("get", "collections");
 }
 
+/**
+ * Get tags, optionally filtered by collection ID.
+ * @param {string|null} [collectionId=null] - The ID of the collection to filter tags by.
+ * @returns {Promise<Array<Object>>} The list of tags.
+ */
 async function getTags(collectionId = null) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "get",
-    "tags",
-    collectionId
-  );
+  return raindropClient.sendRequest("get", "tags", collectionId);
 }
 
+/**
+ * Rename tags.
+ * @param {Object} params - The parameters for renaming tags.
+ * @param {string|null} [collectionId=null] - The ID of the collection to filter tags by.
+ * @returns {Promise<Object>} The result of renaming tags.
+ */
 async function renameTags(params, collectionId = null) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "put",
-    "tags",
-    collectionId,
-    params
-  );
+  return raindropClient.sendRequest("put", "tags", collectionId, params);
 }
 
+/**
+ * Get raindrops by collection ID.
+ * @param {string} collectionId - The ID of the collection to retrieve raindrops from.
+ * @returns {Promise<Array<Object>>} The list of raindrops.
+ */
 async function getRaindropsByCollectionId(collectionId) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "get",
-    "raindrops",
-    collectionId
-  );
+  return raindropClient.sendRequest("get", "raindrops", collectionId);
 }
 
+/**
+ * Get a raindrop by ID.
+ * @param {string} raindropId - The ID of the raindrop to retrieve.
+ * @returns {Promise<Object>} The raindrop data.
+ */
 async function getRaindropById(raindropId) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "get",
-    "raindrop",
-    raindropId
-  );
+  return raindropClient.sendRequest("get", "raindrop", raindropId);
 }
 
+/**
+ * Update raindrops by collection ID.
+ * @param {string} collectionId - The ID of the collection to update raindrops for.
+ * @param {Object} params - The parameters for updating raindrops.
+ * @returns {Promise<Object>} The result of the update.
+ */
 async function updateRaindropsByCollectionId(collectionId, params) {
-  return Utilities.HelpersNetworkRequest.sendRequest(
-    "raindrop",
-    "put",
-    "raindrops",
-    collectionId,
-    params
-  );
+  return raindropClient.sendRequest("put", "raindrops", collectionId, params);
 }
 
-////
-async function updateTagsInBulk() {
+//// CUSTOM FUNCTIONS
+async function incomplete_updateTagsInBulk() {
   const tags = await getTags(
     Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID
   );
@@ -125,9 +126,11 @@ async function updateTagsInBulk() {
 }
 
 /**
- * addCollectionAsTag, moveRaindropToResources, deleteCollection
+ * Adds a collection as a tag, moves raindrop to resources, and deletes the collection.
+ * // addCollectionAsTag, moveRaindropToResources, deleteCollection
+ * @returns {Promise<void>}
  */
-async function bulkUpdateTagsInCollection() {
+async function incomplete_bulkUpdateTagsInCollection() {
   const collections = await getCollections();
   const shouldBeUpdated = (element) =>
     element.parent["$id"] ===
@@ -147,6 +150,12 @@ async function bulkUpdateTagsInCollection() {
   });
 }
 
+/**
+ * Constructs a raindrop from a YouTube playlist item.
+ * @param {string} playlistTitle - The title of the playlist.
+ * @param {Object} playlistItem - The playlist item object.
+ * @returns {Object} The constructed raindrop object.
+ */
 function constructRaindropFromYoutubePlaylistItem(
   playlistTitle,
   {
@@ -171,8 +180,7 @@ function constructRaindropFromYoutubePlaylistItem(
   };
 }
 
-module.exports = {
-  bulkUpdateTagsInCollection,
+const RaindropService = {
   constructRaindropFromYoutubePlaylistItem,
   createRaindrop,
   createRaindrops,
@@ -180,10 +188,31 @@ module.exports = {
   deleteRaindropById,
   getCollectionById,
   getCollections,
+  getRaindropById,
   getRaindropsByCollectionId,
   getTags,
+  incomplete_bulkUpdateTagsInCollection,
+  incomplete_updateTagsInBulk,
   renameTags,
   updateRaindropsByCollectionId,
-  updateTagsInBulk,
-  getRaindropById,
+};
+
+module.exports = {
+  constructRaindropFromYoutubePlaylistItem:
+    RaindropService.constructRaindropFromYoutubePlaylistItem,
+  createRaindrop: RaindropService.createRaindrop,
+  createRaindrops: RaindropService.createRaindrops,
+  deleteCollectionById: RaindropService.deleteCollectionById,
+  deleteRaindropById: RaindropService.deleteRaindropById,
+  getCollectionById: RaindropService.getCollectionById,
+  getCollections: RaindropService.getCollections,
+  getRaindropById: RaindropService.getRaindropById,
+  getRaindropsByCollectionId: RaindropService.getRaindropsByCollectionId,
+  getTags: RaindropService.getTags,
+  incomplete_bulkUpdateTagsInCollection:
+    RaindropService.incomplete_bulkUpdateTagsInCollection,
+  incomplete_updateTagsInBulk: RaindropService.incomplete_updateTagsInBulk,
+  renameTags: RaindropService.renameTags,
+  updateRaindropsByCollectionId: RaindropService.updateRaindropsByCollectionId,
+  RaindropService,
 };

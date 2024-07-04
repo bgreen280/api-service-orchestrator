@@ -3,37 +3,42 @@ const { initAuth } = require("./authRaindrop");
 const { ENDPOINTS } = require("./statics");
 
 /**
- * Send a request to a specified service endpoint.
+ * Factory function to create a service client.
  *
  * @param {string} service - The name of the service.
- * @param {string} method - The HTTP method (get, post, put, delete).
- * @param {string} endpoint - The endpoint to send the request to.
- * @param {string|null} [id=null] - The ID for the endpoint, if applicable.
- * @param {Object|null} [params=null] - The parameters to include in the request body, if applicable.
- * @returns {Promise<Object>} - The response data from the request.
+ * @returns {Object} - An object containing the methods for the service.
  */
-async function sendRequest(
-  service,
-  method,
-  endpoint,
-  id = null,
-  params = null
-) {
-  try {
-    const accessToken = initAuth(service);
-    const config = _createConfig(accessToken);
-    const url = _createUrl(service, endpoint, id);
+function createServiceClient(service) {
+  const accessToken = initAuth(service);
+  const config = _createConfig(accessToken);
 
-    const response =
-      method === "put" || method === "post"
-        ? await axios[method](url, params, config)
-        : await axios[method](url, config);
+  /**
+   * Send a request to the specified endpoint of the service.
+   *
+   * @param {string} method - The HTTP method (get, post, put, delete).
+   * @param {string} endpoint - The endpoint to send the request to.
+   * @param {string|null} [id=null] - The ID for the endpoint, if applicable.
+   * @param {Object|null} [params=null] - The parameters to include in the request body, if applicable.
+   * @returns {Promise<Object>} - The response data from the request.
+   */
+  async function sendRequest(method, endpoint, id = null, params = null) {
+    try {
+      const url = _createUrl(service, endpoint, id);
+      const response =
+        method === "put" || method === "post"
+          ? await axios[method](url, params, config)
+          : await axios[method](url, config);
 
-    return response.data;
-  } catch (error) {
-    _handleRequestError(error);
-    throw error;
+      return response.data;
+    } catch (error) {
+      _handleRequestError(error);
+      throw error;
+    }
   }
+
+  return {
+    sendRequest,
+  };
 }
 
 /**
@@ -80,4 +85,4 @@ function _handleRequestError(error) {
   }
 }
 
-module.exports = { sendRequest };
+module.exports = { createServiceClient };

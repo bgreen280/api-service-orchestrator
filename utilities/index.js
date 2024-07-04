@@ -3,6 +3,6 @@ module.exports = {
   AuthYoutube: require("./authYoutube"),
   Statics: require("./statics"),
   HelpersFileSystem: require("./helpersFileSystem"),
-  HelpersNetworkRequest: require("./helpersNetworkRequest"),
+  CreateServiceClient: require("./createServiceClient"),
   HelpersDateTime: require("./helpersDateTime"),
 };

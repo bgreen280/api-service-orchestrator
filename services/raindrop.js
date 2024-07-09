@@ -72,7 +72,7 @@ async function getTags(collectionId = null) {
  * @param {string|null} [collectionId=null] - The ID of the collection to filter tags by.
  * @returns {Promise<Object>} The result of renaming tags.
  */
-async function renameTags(params, collectionId = null) {
+async function updateTags(params, collectionId = null) {
   return raindropClient.sendRequest("put", "tags", collectionId, params);
 }
 
@@ -105,7 +105,7 @@ async function updateRaindropsByCollectionId(collectionId, params) {
 }
 
 //// CUSTOM FUNCTIONS
-async function incomplete_updateTagsInBulk() {
+async function updateTagsInBulk() {
   const tags = await getTags(
     Utilities.Statics.CONSTANTS.RAINDROP.RAINDROP_RESOURCES_ID
   );
@@ -130,7 +130,7 @@ async function incomplete_updateTagsInBulk() {
  * // addCollectionAsTag, moveRaindropToResources, deleteCollection
  * @returns {Promise<void>}
  */
-async function incomplete_bulkUpdateTagsInCollection() {
+async function bulkUpdateTagsInCollection() {
   const collections = await getCollections();
   const shouldBeUpdated = (element) =>
     element.parent["$id"] ===
@@ -191,9 +191,9 @@ const RaindropService = {
   getRaindropById,
   getRaindropsByCollectionId,
   getTags,
-  incomplete_bulkUpdateTagsInCollection,
-  incomplete_updateTagsInBulk,
-  renameTags,
+  bulkUpdateTagsInCollection,
+  updateTagsInBulk,
+  updateTags,
   updateRaindropsByCollectionId,
 };
 
@@ -209,10 +209,9 @@ module.exports = {
   getRaindropById: RaindropService.getRaindropById,
   getRaindropsByCollectionId: RaindropService.getRaindropsByCollectionId,
   getTags: RaindropService.getTags,
-  incomplete_bulkUpdateTagsInCollection:
-    RaindropService.incomplete_bulkUpdateTagsInCollection,
-  incomplete_updateTagsInBulk: RaindropService.incomplete_updateTagsInBulk,
-  renameTags: RaindropService.renameTags,
+  bulkUpdateTagsInCollection: RaindropService.bulkUpdateTagsInCollection,
+  updateTagsInBulk: RaindropService.updateTagsInBulk,
+  updateTags: RaindropService.updateTags,
   updateRaindropsByCollectionId: RaindropService.updateRaindropsByCollectionId,
   RaindropService,
 };

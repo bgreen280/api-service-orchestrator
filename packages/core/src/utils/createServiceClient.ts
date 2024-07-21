@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 import { initAuth } from './authRaindrop';
-import { ENDPOINTS } from './statics';
+import { ENDPOINTS } from '../../../utilities/statics';
 
 type ServiceName = keyof typeof ENDPOINTS;
 type HttpMethod = 'get' | 'post' | 'put' | 'delete';

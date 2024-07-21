@@ -1,5 +1,5 @@
 // import * as Scripts from './scripts/index';
-import * as Services from "./services/index";
+import * as Services from "./packages/index";
 
 async function main(): Promise<string> {
   try {

@@ -1,4 +1,4 @@
-import * as Services from "../services/index";
+import * as Services from "../../../index";
 
 interface Playlist {
   id: string;

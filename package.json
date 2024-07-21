@@ -2,7 +2,7 @@
 	"name": "personal-data",
 	"version": "0.0.0",
 	"scripts": {
-		"start": "node index.js"
+		"start": "ts-node index.ts"
 	},
 	"license": "ISC",
 	"dependencies": {
@@ -14,5 +14,10 @@
 		"google-auth-library": "^9.11.0",
 		"googleapis": "^140.0.1",
 		"open": "^10.1.0"
+	},
+	"devDependencies": {
+		"@types/node": "^20.14.11",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.5.3"
 	}
 }

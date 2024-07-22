@@ -91,7 +91,5 @@ async function getAllPlaylistItems(
 }
 
 export {
-  getPlaylists,
-  getPlaylistItemsById,
-  getAllPlaylistItems,
+  getAllPlaylistItems, getPlaylistItemsById, getPlaylists
 };

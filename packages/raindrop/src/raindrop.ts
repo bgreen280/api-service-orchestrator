@@ -250,7 +250,7 @@ const RaindropService = {
 };
 
 export {
-  constructRaindropFromYoutubePlaylistItem,
+  bulkUpdateTagsInCollection, constructRaindropFromYoutubePlaylistItem,
   createRaindrop,
   createRaindrops,
   deleteCollectionById,
@@ -259,10 +259,5 @@ export {
   getCollections,
   getRaindropById,
   getRaindropsByCollectionId,
-  getTags,
-  bulkUpdateTagsInCollection,
-  updateTagsInBulk,
-  updateTags,
-  updateRaindropsByCollectionId,
-  RaindropService,
+  getTags, RaindropService, updateRaindropsByCollectionId, updateTags, updateTagsInBulk
 };

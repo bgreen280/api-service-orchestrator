@@ -97,7 +97,6 @@ const GoogleFitModule = {
 };
 
 export {
-  getActivityTypes,
-  getTotalTimeOfActivity,
-  GoogleFitModule,
+  GoogleFitModule, getActivityTypes,
+  getTotalTimeOfActivity
 };

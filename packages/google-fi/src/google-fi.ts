@@ -45,6 +45,5 @@ const GoogleFiModule = {
 };
 
 export {
-  getTotalTimeOnCallWithPerson,
-  GoogleFiModule,
+  GoogleFiModule, getTotalTimeOnCallWithPerson
 };

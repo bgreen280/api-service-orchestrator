@@ -1,17 +1,17 @@
-import path from 'path';
+import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
+import { google } from 'googleapis';
+import { Server } from 'http';
+import path from 'path';
+import {
+  getFileContentAsJSON,
+  isFilePresent,
+  setFile,
+} from './fileSystem';
 import {
   CONFIG,
   CONSTANTS,
 } from './statics';
-import {
-  getFileContentAsJSON,
-  setFile,
-  isFilePresent,
-} from './helpersFileSystem';
-import { google } from 'googleapis';
-import dotenv from 'dotenv';
-import { Server } from 'http';
 
 // config env
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -122,5 +122,5 @@ const YoutubeAuthModule = {
 export {
   initAuth,
   oAuth2Client,
-  YoutubeAuthModule,
+  YoutubeAuthModule
 };

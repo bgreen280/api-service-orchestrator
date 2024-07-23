@@ -8,6 +8,18 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '^@apiso/(.*)$': '<rootDir>/packages/$1/src',
   },
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
+    }
+  },
+  verbose: true
 };
 
 export default config;

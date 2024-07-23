@@ -7,7 +7,7 @@ import {
   getFileContentAsJSON,
   isFilePresent,
   setFile,
-} from './fileSystem';
+} from '../packages/core/src/utils/fileSystem';
 import {
   CONFIG,
   CONSTANTS,

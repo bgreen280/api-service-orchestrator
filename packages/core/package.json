@@ -1,19 +1,12 @@
 {
   "name": "@apiso/core",
-  "version": "0.0.0",
-  "scripts": {
-    "start": "ts-node index.ts"
-  },
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
+  "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
   "dependencies": {
     "axios": "^1.7.2",
     "csvtojson": "^2.0.10",

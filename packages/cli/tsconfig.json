@@ -1,11 +1,11 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
-  }
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*", "../../old/index.ts", "../../old/migrateYoutubePlaylistItemsToRaindrop.ts"],
+  "references": [
+    { "path": "../core" }  // Add other package references as needed
+  ]
 }

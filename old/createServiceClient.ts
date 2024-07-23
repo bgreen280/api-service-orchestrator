@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ENDPOINTS } from '../../../utilities/statics';
-import { initAuth } from './authRaindrop';
+import { AuthProvider, createAuthProvider } from '@your-project/auth';
 
 type ServiceName = keyof typeof ENDPOINTS;
 type HttpMethod = 'get' | 'post' | 'put' | 'delete';
@@ -8,13 +8,16 @@ type HttpMethod = 'get' | 'post' | 'put' | 'delete';
 class ServiceClient {
   private axiosInstance: AxiosInstance;
   private service: ServiceName;
+  private authProvider: AuthProvider;
 
-  constructor(service: ServiceName, accessToken: string) {
+  constructor(service: ServiceName) {
     this.service = service;
-    this.axiosInstance = axios.create(this.createConfig(accessToken));
+    this.authProvider = createAuthProvider(service);
+    this.axiosInstance = axios.create();
   }
 
-  private createConfig(accessToken: string): AxiosRequestConfig {
+  private async createConfig(): Promise<AxiosRequestConfig> {
+    const accessToken = await this.authProvider.getAccessToken();
     return {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -48,11 +51,12 @@ class ServiceClient {
     params: Record<string, unknown> | null = null
   ): Promise<unknown> {
     try {
+      const config = await this.createConfig();
       const url = this.createUrl(endpoint, id);
       const response: AxiosResponse = 
         method === 'put' || method === 'post'
-          ? await this.axiosInstance[method](url, params)
-          : await this.axiosInstance[method](url);
+          ? await this.axiosInstance[method](url, params, config)
+          : await this.axiosInstance[method](url, config);
 
       return response.data;
     } catch (error) {
@@ -63,8 +67,9 @@ class ServiceClient {
 }
 
 function createServiceClient(service: ServiceName): ServiceClient {
-  const accessToken = initAuth(service);
-  return new ServiceClient(service, accessToken);
+  return new ServiceClient(service);
 }
 
 export { createServiceClient, ServiceClient };
+
+

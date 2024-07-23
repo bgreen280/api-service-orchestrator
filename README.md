@@ -170,3 +170,71 @@ competitors
 - [ ] express
 - [ ] convert 'createServiceClient' to object?
 - [ ] implement Claude recommended changes
+
+```mermaid
+graph TD
+    A[CLI Package] --> B[Core Package]
+    A --> C[YouTube Package]
+    A --> D[Raindrop Package]
+    A --> E[Google Drive Package]
+    C --> B
+    D --> B
+    E --> B
+    B --> F[BaseClient]
+    B --> G[Auth Strategies]
+    F --> H[Axios]
+    G --> I[OAuth]
+    G --> J[API Key]
+```
+
+```
+@your-project/
+├── packages/
+│   ├── core/
+│   │   ├── src/
+│   │   │   ├── types.ts
+│   │   │   ├── BaseClient.ts
+│   │   │   ├── auth/
+│   │   │   │   ├── AuthStrategy.ts
+│   │   │   │   ├── OAuthStrategy.ts
+│   │   │   │   └── ApiKeyStrategy.ts
+│   │   │   ├── errors.ts
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── youtube/
+│   │   ├── src/
+│   │   │   ├── YouTubeClient.ts
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── raindrop/
+│   │   ├── src/
+│   │   │   ├── RaindropClient.ts
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── google-drive/
+│   │   ├── src/
+│   │   │   ├── GoogleDriveClient.ts
+│   │   │   ├── types.ts
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── cli/
+│       ├── src/
+│       │   ├── commands/
+│       │   │   ├── youtube.ts
+│       │   │   ├── raindrop.ts
+│       │   │   └── googleDrive.ts
+│       │   ├── index.ts
+│       │   └── cli.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── tsconfig.json
+├── package.json
+├── lerna.json
+└── README.md
+```

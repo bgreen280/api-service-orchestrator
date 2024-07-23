@@ -1,22 +1,26 @@
-// import * as Scripts from './scripts/index';
+#!/usr/bin/env node
 
-async function main(): Promise<string> {
-  try {
-    // await Scripts.migrateYoutubePlaylistsToRaindrop();
-    return "complete";
-  } catch (error) {
-    console.error(
-      "Failed to fetch collections:",
-      error instanceof Error ? error.message : String(error)
-    );
-    process.exit(1);
-  }
-}
+import { Command } from 'commander';
+import { migrateYoutubePlaylistItemsToRaindrop } from './commands';
 
-main().catch((error) => {
-  console.error(
-    "Unhandled error in main function:",
-    error instanceof Error ? error.message : String(error)
-  );
-  process.exit(1);
-});
+const program = new Command();
+
+program
+  .name('api-service-orchestrator')
+  .description('CLI to manage various API integrations')
+  .version('0.1.0');
+
+program
+  .command('migrate')
+  .description('Migrate YouTube playlists to Raindrop')
+  .action(async () => {
+    const result = await migrateYoutubePlaylistItemsToRaindrop();
+    if (result.success) {
+      console.log(result.message);
+    } else {
+      console.error(result.message);
+      process.exit(1);
+    }
+  });
+
+program.parse(process.argv);

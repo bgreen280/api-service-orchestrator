@@ -1,8 +1,8 @@
 import * as Utilities from "../utilities/index";
-import { CreateServiceClient } from "../utilities/index";
+import { createServiceClient } from "../utilities/index";
 
 // NETWORK REQUESTS
-const raindropClient = CreateServiceClient("raindrop");
+const raindropClient = createServiceClient("raindrop");
 
 interface Raindrop {
   tags: string[];

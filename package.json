@@ -7,20 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "ts-node packages/cli/src/index.ts",
-    "build": "tsc -b packages/*",
-    "test": "jest",
+    "start": "node --experimental-specifier-resolution=node --loader ts-node/esm packages/cli/src/index.ts",
+    "format": "prettier --write \"**/*.ts\"",
+    "generate-package": "node tools/scripts/generate-package.js",
     "lint": "eslint . --ext .ts",
-    "format": "prettier --write \"**/*.ts\""
-  },
-  "dependencies": {
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
-    "google-auth-library": "^9.11.0",
-    "googleapis": "^140.0.1",
-    "open": "^10.1.0"
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
@@ -39,6 +31,6 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "author": "Your Name",
-  "license": "ISC"
+  "author": "Bernie Green",
+  "license": "MIT"
 }

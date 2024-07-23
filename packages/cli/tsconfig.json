@@ -4,8 +4,10 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src/**/*", "../../old/index.ts", "../../old/migrateYoutubePlaylistItemsToRaindrop.ts"],
+  "include": ["src/**/*"],
   "references": [
-    { "path": "../core" }  // Add other package references as needed
+    { "path": "../core" },
+    { "path": "../raindrop" },
+    { "path": "../youtube" }
   ]
 }

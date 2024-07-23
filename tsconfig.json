@@ -23,6 +23,6 @@
     { "path": "./packages/core" },
     { "path": "./packages/cli" },
     { "path": "./packages/raindrop" },
-    { "path": "./packages/youtube" },
+    { "path": "./packages/youtube" }
   ]
 }

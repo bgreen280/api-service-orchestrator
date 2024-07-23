@@ -5,8 +5,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Utility function for resolving paths relative to the workspace root
-function workspacePath(relativePath: string): string {
-  return path.resolve(__dirname, '..', relativePath); // Go up one level to workspace root
+const workspaceRoot = path.resolve(__dirname, '..', '..');
+
+export function workspacePath(relativePath: string): string {
+  return path.resolve(workspaceRoot, relativePath);
 }
 
 // CONFIG & SERVICES

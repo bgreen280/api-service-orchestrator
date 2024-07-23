@@ -1,0 +1,20 @@
+{
+  "name": "@apiso/{package-name}",
+  "version": "0.0.1",
+  "description": "{package-description}",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "author": "{package-author}",
+  "license": "MIT",
+  "dependencies": {
+    "@apiso/core": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "typescript": "^5.5.3"
+  }
+}

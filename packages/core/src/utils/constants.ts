@@ -12,10 +12,6 @@ export function workspacePath(relativePath: string): string {
 }
 
 // CONFIG & SERVICES
-const CONFIG = {
-  PORT: 3000,
-} as const;
-
 const SERVICES = {
   raindrop: 'RAINDROP_ACCESS_TOKEN',
 } as const;
@@ -67,7 +63,6 @@ const YOUTUBE_CONSTANTS = {
 };
 
 export {
-  CONFIG,
   SERVICES,
   GOOGLE_CONSTANTS as GOOGLE,
   GOOGLE_FI_CONSTANTS as GOOGLE_FI,

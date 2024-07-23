@@ -10,8 +10,8 @@ export interface OAuthConfig extends BaseAuthConfig {
   type: 'oauth';
   clientId: string;
   clientSecret: string;
-  callbackPort?: number;
-  oAuth2Client?: OAuth2Client;
+  oAuth2Client: OAuth2Client;
+  callbackPort: number;
   scopes: string[];
 }
 

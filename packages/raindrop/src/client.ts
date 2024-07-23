@@ -6,9 +6,9 @@ export class RaindropClient extends BaseClient {
     const config: ServiceConfig = {
       auth: {
         type: 'apiKey',
-        apiKey: apiKey
+        apiKey: apiKey,
       },
-      baseUrl: 'https://api.raindrop.io/rest/v1'
+      baseUrl: 'https://api.raindrop.io/rest/v1',
     };
     super(config);
   }
@@ -55,7 +55,10 @@ export class RaindropClient extends BaseClient {
     return this.request<Raindrop>('GET', `/raindrop/${raindropId}`);
   }
 
-  async updateRaindropsByCollectionId(collectionId: string, params: UpdateTagsParams): Promise<unknown> {
+  async updateRaindropsByCollectionId(
+    collectionId: string,
+    params: UpdateTagsParams
+  ): Promise<unknown> {
     return this.request<unknown>('PUT', `/raindrops/${collectionId}`, params);
   }
 }

@@ -1,4 +1,4 @@
-import { ApiKeyStrategy } from "./ApiKeyStrategy";
-import { OAuthStrategy } from "./OAuthStrategy";
+import { ApiKeyStrategy } from './ApiKeyStrategy';
+import { OAuthStrategy } from './OAuthStrategy';
 
 export { ApiKeyStrategy, OAuthStrategy };

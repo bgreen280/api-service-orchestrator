@@ -26,7 +26,10 @@ const getFile = (filePath: string): string => {
  * @returns The parsed JSON content.
  * @throws Error if the file cannot be read or parsed.
  */
-const getFileContentAsJSON = (filePath: string, options: FileReadOptions = { encoding: 'utf8' }): unknown => {
+const getFileContentAsJSON = (
+  filePath: string,
+  options: FileReadOptions = { encoding: 'utf8' }
+): unknown => {
   try {
     const content = fs.readFileSync(filePath, options);
     return JSON.parse(content);
@@ -89,11 +92,4 @@ const FileUtils = {
   setFile,
 };
 
-export {
-  getFile,
-  getFileContentAsJSON,
-  getFiles,
-  isFilePresent,
-  setFile,
-  FileUtils,
-};
+export { getFile, getFileContentAsJSON, getFiles, isFilePresent, setFile, FileUtils };

@@ -1,4 +1,4 @@
-import { BaseClient, ServiceConfig, OAuthConfig } from '@apiso/core';
+import { BaseClient, OAuthConfig } from '@apiso/core';
 import { google, youtube_v3 } from 'googleapis';
 import { Playlist, PlaylistItem, PaginatedResponse } from './types';
 
@@ -8,7 +8,7 @@ export class YouTubeClient extends BaseClient {
   constructor(config: OAuthConfig) {
     super({
       auth: config,
-      baseUrl: 'https://www.googleapis.com/youtube/v3'
+      baseUrl: 'https://www.googleapis.com/youtube/v3',
     });
     this.youtube = google.youtube({ version: 'v3', auth: config.oAuth2Client });
   }
@@ -26,7 +26,10 @@ export class YouTubeClient extends BaseClient {
     };
   }
 
-  async getPlaylistItemsById(playlistId: string, pageToken?: string): Promise<PaginatedResponse<PlaylistItem>> {
+  async getPlaylistItemsById(
+    playlistId: string,
+    pageToken?: string
+  ): Promise<PaginatedResponse<PlaylistItem>> {
     const response = await this.youtube.playlistItems.list({
       part: ['snippet', 'contentDetails'],
       playlistId: playlistId,

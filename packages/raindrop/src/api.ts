@@ -48,7 +48,10 @@ export class RaindropAPI {
     return this.client.getRaindropById(raindropId);
   }
 
-  async updateRaindropsByCollectionId(collectionId: string, params: UpdateTagsParams): Promise<unknown> {
+  async updateRaindropsByCollectionId(
+    collectionId: string,
+    params: UpdateTagsParams
+  ): Promise<unknown> {
     return this.client.updateRaindropsByCollectionId(collectionId, params);
   }
 }

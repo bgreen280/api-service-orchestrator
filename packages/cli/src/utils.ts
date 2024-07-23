@@ -1,6 +1,6 @@
 import { YouTubeAPI } from '@apiso/youtube';
 import { RaindropAPI } from '@apiso/raindrop';
-import { OAuthConfig } from '@apiso/core'; 
+import { OAuthConfig } from '@apiso/core';
 import { google } from 'googleapis';
 
 export function createYouTubeAPI(): YouTubeAPI {
@@ -12,11 +12,7 @@ export function createYouTubeAPI(): YouTubeAPI {
     throw new Error('Missing YouTube OAuth credentials in environment variables');
   }
 
-  const oauth2Client = new google.auth.OAuth2(
-    clientId,
-    clientSecret,
-    redirectUri
-  );
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
 
   // You need to implement token retrieval/refresh logic here
   oauth2Client.setCredentials({

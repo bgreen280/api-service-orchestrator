@@ -20,7 +20,7 @@ export class OAuthStrategy implements AuthStrategy {
   }
 
   private async authenticate(): Promise<void> {
-    const loadedTokens = this.loadTokens(); 
+    const loadedTokens = this.loadTokens();
     if (loadedTokens) {
       this.config?.oAuth2Client?.setCredentials(loadedTokens);
       this.accessToken = loadedTokens.access_token || null;
@@ -34,7 +34,7 @@ export class OAuthStrategy implements AuthStrategy {
       app.get('/oauth2callback', async (req: Request, res: Response) => {
         const { code } = req.query;
         try {
-          const { tokens } = await this.config?.oAuth2Client?.getToken(code as string);
+          const { tokens } = await this.config.oAuth2Client.getToken(code as string);
           this.config?.oAuth2Client?.setCredentials(tokens);
           this.accessToken = tokens.access_token;
           this.saveTokens(tokens);
@@ -64,8 +64,10 @@ export class OAuthStrategy implements AuthStrategy {
       scope: this.config.scopes,
       include_granted_scopes: true,
     });
-  
-    console.log(`If the browser does not open automatically, please navigate to the following URL: ${authUrl}`);
+
+    console.log(
+      `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`
+    );
     if (authUrl) {
       open(authUrl).catch(console.error);
     }

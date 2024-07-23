@@ -8,21 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "start": "node --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts"
+    "test": "jest"
   },
-  "dependencies": {
-    "@apiso/core": "^0.0.1",
-    "@apiso/raindrop": "^0.0.1",
-    "@apiso/youtube": "^0.0.1",
-    "commander": "^9.0.0",
-    "dotenv": "^16.4.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20.14.11",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
-  },
-  "author": "Bernie Green",
   "license": "MIT"
 }

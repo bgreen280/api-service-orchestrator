@@ -7,16 +7,5 @@
     "build": "tsc",
     "test": "jest"
   },
-  "dependencies": {
-    "@apiso/core": "^0.0.1"
-  },
-  "devDependencies": {
-    "@types/node": "^20.14.11",
-    "typescript": "^5.5.3"
-  },
-  "peerDependencies": {
-    "axios": "^1.7.2"
-  },
-  "author": "Bernie Green",
   "license": "MIT"
 }

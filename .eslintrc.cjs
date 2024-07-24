@@ -41,5 +41,6 @@ module.exports = {
     '@typescript-eslint/no-floating-promises': 'error',
     eqeqeq: ['error', 'always'],
     curly: ['error', 'all'],
+    'no-console': 'off',
   },
 };

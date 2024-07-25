@@ -1,4 +1,4 @@
-import { OAuth2Client } from '@apiso/core';
+import { OAuth2Client } from 'google-auth-library';
 
 export type AuthType = 'oauth' | 'apiKey';
 

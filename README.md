@@ -3,10 +3,12 @@
 ## overview
 
 status:
+
 - broken due monorepo upgrade
 - resolution eta: July 29, 2024
 
 features:
+
 - connect and CRUD to multiple services using personal secrets
 - data manipulation utility libraries
 
@@ -46,7 +48,6 @@ graph TD
     G --> I[OAuth]
     G --> J[API Key]
 ```
-
 
 ### dir
 
@@ -101,8 +102,6 @@ graph TD
 ├── lerna.json
 └── README.md
 ```
-
-
 
 ## TODO
 

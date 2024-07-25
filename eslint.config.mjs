@@ -21,10 +21,7 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: [
-          './packages/*/tsconfig.json',
-          './tsconfig.eslint.json'
-        ],
+        project: ['./packages/*/tsconfig.json', './tsconfig.eslint.json'],
         tsconfigRootDir: __dirname,
       },
       globals: {

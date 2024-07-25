@@ -40,7 +40,9 @@ export class YouTubeAPI {
     const playlists = await this.getPlaylists();
 
     for (const playlist of playlists) {
-      if (!playlist.id) continue;
+      if (!playlist.id) {
+        continue;
+      }
       try {
         const playlistItems = await this.getPlaylistItemsById(playlist.id);
         if (callback) {

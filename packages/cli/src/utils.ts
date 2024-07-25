@@ -1,7 +1,6 @@
 import { YouTubeAPI } from '@apiso/youtube';
 import { RaindropAPI } from '@apiso/raindrop';
-import { OAuthConfig } from '@apiso/core';
-import { google } from 'googleapis';
+import { OAuthConfig, google } from '@apiso/core';
 
 export function createYouTubeAPI(): YouTubeAPI {
   const clientId = process.env.YOUTUBE_CLIENT_ID;

@@ -7,5 +7,12 @@
     "build": "tsc",
     "test": "jest"
   },
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "axios": "^1.7.2",
+    "google-auth-library": "^9.11.0",
+    "googleapis": "^140.0.1",
+    "open": "^10.1.0"
+  },
   "license": "MIT"
 }

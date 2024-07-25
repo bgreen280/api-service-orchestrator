@@ -1,4 +1,4 @@
-import { youtube_v3 } from 'googleapis';
+import { youtube_v3 } from '@apiso/core';
 
 export type Playlist = youtube_v3.Schema$Playlist;
 export type PlaylistItem = youtube_v3.Schema$PlaylistItem;

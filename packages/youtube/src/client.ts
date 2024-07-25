@@ -1,5 +1,4 @@
-import { BaseClient, OAuthConfig } from '@apiso/core';
-import { google, youtube_v3 } from 'googleapis';
+import { BaseClient, OAuthConfig, google, youtube_v3 } from '@apiso/core';
 import { Playlist, PlaylistItem, PaginatedResponse } from './types';
 
 export class YouTubeClient extends BaseClient {

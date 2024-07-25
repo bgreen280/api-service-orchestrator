@@ -107,20 +107,20 @@ graph TD
 ## TODO
 
 - [ ] resolve breaking changes for each module
-- [x] typescript
-- [ ] dev dependencies: prettier, eslint, ts-node
-- [x] re-structure packages
-- [x] yarn
-- [x] yarn workspaces
 - [ ] standardize error handling
 - [ ] add clickup support (oauth and api key)
 - [ ] add claude support (oauth and api key)
 - [ ] jest
 - [ ] readme for each service (setup + auth)
-- [ ] name
 - [ ] generate new package/service script
 - [ ] youtube: delete playlist
 - [ ] youtube: manage descriptions in bulk
+- [x] dev dependencies: prettier, eslint, ts-node
+- [x] yarn workspaces
+- [x] yarn
+- [x] re-structure packages
+- [x] typescript
+- [x] name
 - [x] git init + github
 - [x] [BUG] resolve server staying open after getPlaylists has returned result
 - [x] get videos for each playlist

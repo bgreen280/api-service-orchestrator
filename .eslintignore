@@ -1,0 +1,8 @@
+data/
+node_modules/
+dist/
+*.config.mjs
+jest.config.ts
+lint-runner.mjs
+tools/scripts/start.js
+tsconfig-paths-bootstrap.mjs

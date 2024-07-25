@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
@@ -18,12 +18,5 @@
       "@apiso/*": ["packages/*/src"]
     }
   },
-  "include": ["packages/*/src", ".eslintrc.cjs"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "./packages/core" },
-    { "path": "./packages/cli" },
-    { "path": "./packages/raindrop" },
-    { "path": "./packages/youtube" }
-  ]
+  "exclude": ["node_modules", "dist"]
 }

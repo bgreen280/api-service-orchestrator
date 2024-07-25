@@ -7,8 +7,9 @@
 .DS_Store
 Thumbs.db
 
-# Data
+# Data and cache directories
 data/*/*
+.cache/
 
 # Dependencies
 node_modules
@@ -49,3 +50,5 @@ coverage
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+

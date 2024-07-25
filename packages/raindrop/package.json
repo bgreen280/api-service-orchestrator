@@ -9,10 +9,14 @@
   },
   "dependencies": {
     "@apiso/core": "workspace:*",
-    "@apiso/youtube": "workspace:*",
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.5",
-    "open": "^10.1.0"
+    "@apiso/youtube": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.3",
+    "typescript": "^5.5.4"
   },
   "license": "MIT"
 }

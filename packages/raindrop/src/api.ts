@@ -42,7 +42,10 @@ export class RaindropAPI extends BaseAPI {
     return this.request<{ items: ITag[] }>('GET', endpoint);
   }
 
-  async updateTags(params: IUpdateTagsParams, collectionId: string | null = null): Promise<unknown> {
+  async updateTags(
+    params: IUpdateTagsParams,
+    collectionId: string | null = null
+  ): Promise<unknown> {
     const endpoint = collectionId ? `/tags/${collectionId}` : '/tags';
     return this.request<unknown>('PUT', endpoint, params);
   }
@@ -61,4 +64,8 @@ export class RaindropAPI extends BaseAPI {
   ): Promise<unknown> {
     return this.request<unknown>('PUT', `/raindrops/${collectionId}`, params);
   }
+}
+
+export function createRaindropAPI(apiKey: string): RaindropAPI {
+  return new RaindropAPI(apiKey);
 }

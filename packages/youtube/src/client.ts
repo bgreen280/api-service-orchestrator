@@ -1,4 +1,4 @@
-import { YouTubeAPI } from './api';
+import { createYouTubeAPI, YouTubeAPI } from './api';
 import { IPlaylist, IPlaylistItem } from './types';
 import { google, IOAuthConfig } from '@apiso/core';
 
@@ -6,7 +6,7 @@ export class YouTubeClient {
   private api: YouTubeAPI;
 
   constructor(config: IOAuthConfig) {
-    this.api = new YouTubeAPI(config);
+    this.api = createYouTubeAPI(config);
   }
 
   async getPlaylists(): Promise<IPlaylist[]> {

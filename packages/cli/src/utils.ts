@@ -1,16 +1,6 @@
-import { YouTubeClient, IPlaylistItem } from '@apiso/youtube';
-import { RaindropClient, IRaindrop } from '@apiso/raindrop';
-import { RAINDROP_CONSTANTS, google } from '@apiso/core';
-
-
-
-export function createRaindropClient(): RaindropClient {
-  const apiKey = process.env.RAINDROP_API_KEY;
-  if (!apiKey) {
-    throw new Error('RAINDROP_API_KEY is not set in the environment variables');
-  }
-  return new RaindropClient(apiKey);
-}
+import { IPlaylistItem } from '@apiso/youtube';
+import { IRaindrop } from '@apiso/raindrop';
+import { RAINDROP_CONSTANTS } from '@apiso/core';
 
 export function constructRaindropFromYoutubePlaylistItem(
   playlistTitle: string,

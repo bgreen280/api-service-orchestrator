@@ -41,3 +41,7 @@ export class YouTubeAPI extends BaseAPI {
     };
   }
 }
+
+export function createYouTubeAPI(config: IOAuthConfig): YouTubeAPI {
+  return new YouTubeAPI(config);
+}

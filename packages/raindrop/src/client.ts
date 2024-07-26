@@ -1,4 +1,4 @@
-import { RaindropAPI } from './api';
+import { createRaindropAPI, RaindropAPI } from './api';
 import { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
 import { RAINDROP_CONSTANTS } from '@apiso/core';
 
@@ -6,7 +6,7 @@ export class RaindropClient {
   private api: RaindropAPI;
 
   constructor(apiKey: string) {
-    this.api = new RaindropAPI(apiKey);
+    this.api = createRaindropAPI(apiKey);
   }
 
   async createRaindrop(raindrop: IRaindrop): Promise<IRaindrop> {

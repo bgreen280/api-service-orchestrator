@@ -106,14 +106,18 @@ graph TD
 ## TODO
 
 - [ ] resolve breaking changes for each module
+- [ ] jest
 - [ ] standardize error handling
+- [ ] readme for each service (setup + auth)
+- [ ] resolve dependencies mis-alignment (`yarn explain peer-requirements`)
+- [ ] generate new package/service script
 - [ ] add clickup support (oauth and api key)
 - [ ] add claude support (oauth and api key)
-- [ ] jest
-- [ ] readme for each service (setup + auth)
-- [ ] generate new package/service script
+- [ ] youtube: bulk manage descriptions
 - [ ] youtube: delete playlist
-- [ ] youtube: manage descriptions in bulk
+- [ ] migrate commands to 'command' package
+- [ ] migrate auth logic to 'auth' package
+- [ ] migrate utils logic to 'utils' package
 - [x] dev dependencies: prettier, eslint, ts-node
 - [x] yarn workspaces
 - [x] yarn

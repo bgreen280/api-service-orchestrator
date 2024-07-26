@@ -1,9 +1,9 @@
 import { youtube_v3 } from '@apiso/core';
 
-export type Playlist = youtube_v3.Schema$Playlist;
-export type PlaylistItem = youtube_v3.Schema$PlaylistItem;
+export type IPlaylist = youtube_v3.Schema$Playlist;
+export type IPlaylistItem = youtube_v3.Schema$PlaylistItem;
 
-export interface PaginatedResponse<T> {
+export interface IPaginatedResponse<T> {
   items: T[];
   nextPageToken?: string;
 }

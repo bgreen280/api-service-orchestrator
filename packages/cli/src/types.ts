@@ -1,4 +1,4 @@
-export interface CommandResult {
+export interface ICommandResult {
   success: boolean;
   message: string;
 }

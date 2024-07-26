@@ -2,15 +2,15 @@ import { Server } from 'http';
 import open from 'open';
 import { Credentials } from 'google-auth-library';
 import express, { Request, Response } from 'express';
-import { AuthStrategy, OAuthConfig } from '../types';
+import { IAuthStrategy, IOAuthConfig } from '../types';
 import { getFileContentAsJSON, isFilePresent, setFile } from '../utils/fileSystem';
-import { GOOGLE } from '../utils/constants';
+import { GOOGLE } from '../constants';
 
-export class OAuthStrategy implements AuthStrategy {
+export class OAuthStrategy implements IAuthStrategy {
   private accessToken: string | null = null;
   private server: Server | null = null;
 
-  constructor(private config: OAuthConfig) {}
+  constructor(private config: IOAuthConfig) {}
 
   async getAuthHeader(): Promise<Record<string, string>> {
     if (!this.accessToken) {

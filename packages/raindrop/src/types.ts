@@ -1,4 +1,4 @@
-export interface Raindrop {
+export interface IRaindrop {
   tags: string[];
   collection: {
     $ref: string;
@@ -11,7 +11,7 @@ export interface Raindrop {
   excerpt: string;
 }
 
-export interface Tag {
+export interface ITag {
   _id: string;
   title: string;
   parent: {
@@ -19,7 +19,7 @@ export interface Tag {
   };
 }
 
-export interface Collection {
+export interface ICollection {
   _id: string;
   title: string;
   parent: {
@@ -27,7 +27,7 @@ export interface Collection {
   };
 }
 
-export interface UpdateTagsParams {
+export interface IUpdateTagsParams {
   tags: string[];
   collectionId: string;
 }

@@ -1,40 +1,37 @@
-import { YouTubeAPI } from '@apiso/youtube';
-import { RaindropAPI } from '@apiso/raindrop';
-import { OAuthConfig, google } from '@apiso/core';
+import { YouTubeClient, IPlaylistItem } from '@apiso/youtube';
+import { RaindropClient, IRaindrop } from '@apiso/raindrop';
+import { RAINDROP_CONSTANTS, google } from '@apiso/core';
 
-export function createYouTubeAPI(): YouTubeAPI {
-  const clientId = process.env.YOUTUBE_CLIENT_ID;
-  const clientSecret = process.env.YOUTUBE_CLIENT_SECRET;
-  const redirectUri = process.env.YOUTUBE_REDIRECT_URI;
 
-  if (!clientId || !clientSecret || !redirectUri) {
-    throw new Error('Missing YouTube OAuth credentials in environment variables');
-  }
 
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
-
-  // You need to implement token retrieval/refresh logic here
-  oauth2Client.setCredentials({
-    access_token: process.env.YOUTUBE_ACCESS_TOKEN,
-    refresh_token: process.env.YOUTUBE_REFRESH_TOKEN,
-  });
-
-  const config: OAuthConfig = {
-    type: 'oauth',
-    clientId,
-    clientSecret,
-    oAuth2Client: oauth2Client,
-    scopes: ['https://www.googleapis.com/auth/youtube.readonly'],
-    callbackPort: 3000, // Add this if it's required by your OAuthConfig type
-  };
-
-  return new YouTubeAPI(config);
-}
-
-export function createRaindropAPI(): RaindropAPI {
+export function createRaindropClient(): RaindropClient {
   const apiKey = process.env.RAINDROP_API_KEY;
   if (!apiKey) {
     throw new Error('RAINDROP_API_KEY is not set in the environment variables');
   }
-  return new RaindropAPI(apiKey);
+  return new RaindropClient(apiKey);
+}
+
+export function constructRaindropFromYoutubePlaylistItem(
+  playlistTitle: string,
+  {
+    snippet: {
+      description,
+      title: videoTitle,
+      resourceId: { videoId },
+    },
+  }: IPlaylistItem
+): IRaindrop {
+  return {
+    tags: ['resources', playlistTitle],
+    collection: {
+      $ref: 'collections',
+      $id: RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID,
+      oid: RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID,
+    },
+    type: 'video',
+    title: videoTitle,
+    link: `https://www.youtube.com/watch?v=${videoId}`,
+    excerpt: description,
+  };
 }

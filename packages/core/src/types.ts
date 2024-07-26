@@ -1,12 +1,12 @@
 import { OAuth2Client } from 'google-auth-library';
 
-export type AuthType = 'oauth' | 'apiKey';
+export type IAuthType = 'oauth' | 'apiKey';
 
-export interface BaseAuthConfig {
-  type: AuthType;
+export interface IBaseAuthConfig {
+  type: IAuthType;
 }
 
-export interface OAuthConfig extends BaseAuthConfig {
+export interface IOAuthConfig extends IBaseAuthConfig {
   type: 'oauth';
   clientId: string;
   clientSecret: string;
@@ -15,18 +15,18 @@ export interface OAuthConfig extends BaseAuthConfig {
   scopes: string[];
 }
 
-export interface ApiKeyConfig extends BaseAuthConfig {
+export interface IApiKeyConfig extends IBaseAuthConfig {
   type: 'apiKey';
   apiKey: string;
 }
 
-export type AuthConfig = OAuthConfig | ApiKeyConfig;
+export type IAuthConfig = IOAuthConfig | IApiKeyConfig;
 
-export interface ServiceConfig {
-  auth: AuthConfig;
+export interface IServiceConfig {
+  auth: IAuthConfig;
   baseUrl: string;
 }
 
-export interface AuthStrategy {
+export interface IAuthStrategy {
   getAuthHeader(): Promise<Record<string, string>>;
 }

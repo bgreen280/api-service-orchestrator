@@ -1,64 +1,105 @@
-import { BaseClient, ServiceConfig } from '@apiso/core';
-import { Raindrop, Collection, Tag, UpdateTagsParams } from './types';
+import { RaindropAPI } from './api';
+import { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
+import { RAINDROP_CONSTANTS } from '@apiso/core';
 
-export class RaindropClient extends BaseClient {
+export class RaindropClient {
+  private api: RaindropAPI;
+
   constructor(apiKey: string) {
-    const config: ServiceConfig = {
-      auth: {
-        type: 'apiKey',
-        apiKey: apiKey,
-      },
-      baseUrl: 'https://api.raindrop.io/rest/v1',
-    };
-    super(config);
+    this.api = new RaindropAPI(apiKey);
   }
 
-  async createRaindrop(raindrop: Raindrop): Promise<Raindrop> {
-    return this.request<Raindrop>('POST', '/raindrop', raindrop);
+  async createRaindrop(raindrop: IRaindrop): Promise<IRaindrop> {
+    return this.api.createRaindrop(raindrop);
   }
 
-  async createRaindrops(raindrops: Raindrop[]): Promise<Raindrop[]> {
-    return this.request<Raindrop[]>('POST', '/raindrops', raindrops);
+  async createRaindrops(raindrops: IRaindrop[]): Promise<IRaindrop[]> {
+    return this.api.createRaindrops(raindrops);
   }
 
   async deleteCollectionById(collectionId: string): Promise<unknown> {
-    return this.request<unknown>('DELETE', `/collection/${collectionId}`);
+    return this.api.deleteCollectionById(collectionId);
   }
 
   async deleteRaindropById(raindropId: string): Promise<unknown> {
-    return this.request<unknown>('DELETE', `/raindrop/${raindropId}`);
+    return this.api.deleteRaindropById(raindropId);
   }
 
-  async getCollectionById(collectionId: string): Promise<Collection> {
-    return this.request<Collection>('GET', `/collection/${collectionId}`);
+  async getCollectionById(collectionId: string): Promise<ICollection> {
+    return this.api.getCollectionById(collectionId);
   }
 
-  async getCollections(): Promise<{ items: Collection[] }> {
-    return this.request<{ items: Collection[] }>('GET', '/collections');
+  async getCollections(): Promise<{ items: ICollection[] }> {
+    return this.api.getCollections();
   }
 
-  async getTags(collectionId: string | null = null): Promise<{ items: Tag[] }> {
-    const endpoint = collectionId ? `/tags/${collectionId}` : '/tags';
-    return this.request<{ items: Tag[] }>('GET', endpoint);
+  async getTags(collectionId: string | null = null): Promise<{ items: ITag[] }> {
+    return this.api.getTags(collectionId);
   }
 
-  async updateTags(params: UpdateTagsParams, collectionId: string | null = null): Promise<unknown> {
-    const endpoint = collectionId ? `/tags/${collectionId}` : '/tags';
-    return this.request<unknown>('PUT', endpoint, params);
+  async updateTags(
+    params: IUpdateTagsParams,
+    collectionId: string | null = null
+  ): Promise<unknown> {
+    return this.api.updateTags(params, collectionId);
   }
 
-  async getRaindropsByCollectionId(collectionId: string): Promise<{ items: Raindrop[] }> {
-    return this.request<{ items: Raindrop[] }>('GET', `/raindrops/${collectionId}`);
+  async getRaindropsByCollectionId(collectionId: string): Promise<{ items: IRaindrop[] }> {
+    return this.api.getRaindropsByCollectionId(collectionId);
   }
 
-  async getRaindropById(raindropId: string): Promise<Raindrop> {
-    return this.request<Raindrop>('GET', `/raindrop/${raindropId}`);
+  async getRaindropById(raindropId: string): Promise<IRaindrop> {
+    return this.api.getRaindropById(raindropId);
   }
 
   async updateRaindropsByCollectionId(
     collectionId: string,
-    params: UpdateTagsParams
+    params: IUpdateTagsParams
   ): Promise<unknown> {
-    return this.request<unknown>('PUT', `/raindrops/${collectionId}`, params);
+    return this.api.updateRaindropsByCollectionId(collectionId, params);
   }
+
+  async updateTagsInBulk(): Promise<void> {
+    const tags = await this.getTags(RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID);
+    const shouldBeUpdated = (element: ITag) =>
+      element.parent['$id'] === RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID;
+
+    for (const element of tags.items) {
+      if (shouldBeUpdated(element)) {
+        const { title } = element;
+        const params: IUpdateTagsParams = {
+          tags: [title, 'resources'],
+          collectionId: RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID,
+        };
+        await this.updateTags(params, RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID);
+      }
+    }
+  }
+
+  async bulkUpdateTagsInCollection(): Promise<void> {
+    const collections = await this.getCollections();
+    const shouldBeUpdated = (element: ICollection) =>
+      element.parent['$id'] === RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID;
+
+    for (const element of collections.items) {
+      if (shouldBeUpdated(element)) {
+        const { _id, title } = element;
+        const params: IUpdateTagsParams = {
+          tags: [title, 'resources'],
+          collectionId: RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID,
+        };
+        await this.updateRaindropsByCollectionId(_id, params);
+        // Uncomment the following line if you want to delete the collection after updating
+        // await api.deleteCollectionById(_id);
+      }
+    }
+  }
+}
+
+export function createRaindropClient(): RaindropClient {
+  const apiKey = process.env.RAINDROP_API_KEY;
+  if (!apiKey) {
+    throw new Error('RAINDROP_API_KEY is not set in the environment variables');
+  }
+  return new RaindropClient(apiKey);
 }

@@ -1,21 +1,21 @@
-import { constructRaindropFromYoutubePlaylistItem } from '@apiso/raindrop';
-import { Playlist, PlaylistItem } from '@apiso/youtube';
-import { CommandResult } from '../types';
-import { createYouTubeAPI, createRaindropAPI } from '../utils';
+import { createRaindropClient } from '@apiso/raindrop';
+import { createYoutubeClient, IPlaylist, IPlaylistItem } from '@apiso/youtube';
+import { ICommandResult } from '../types';
 
-export async function migrateYoutubePlaylistItemsToRaindrop(): Promise<CommandResult> {
-  const youtubeAPI = createYouTubeAPI();
-  const raindropAPI = createRaindropAPI();
+
+export async function migrateYoutubePlaylistItemsToRaindrop(): Promise<ICommandResult> {
+  const youtubeClient = createYoutubeClient();
+  const raindropClient = createRaindropClient();
 
   try {
-    const playlists: Playlist[] = await youtubeAPI.getPlaylists();
+    const playlists: IPlaylist[] = await youtubeClient.getPlaylists();
 
     for (const playlist of playlists) {
-      const playlistItems: PlaylistItem[] = await youtubeAPI.getPlaylistItemsById(playlist.id!);
+      const playlistItems: IPlaylistItem[] = await youtubeClient.getPlaylistItemsById(playlist.id!);
       const raindrops = playlistItems.map(playlistItem =>
         constructRaindropFromYoutubePlaylistItem(playlist.snippet!.title!, playlistItem)
       );
-      await raindropAPI.createRaindrops(raindrops);
+      await raindropClient.createRaindrops(raindrops);
     }
 
     return {

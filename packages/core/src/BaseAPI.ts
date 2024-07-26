@@ -4,14 +4,14 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { AuthConfig, AuthStrategy, ServiceConfig } from './types';
+import { IAuthConfig, IAuthStrategy, IServiceConfig } from './types';
 import { OAuthStrategy, ApiKeyStrategy } from './auth';
 
-export class BaseClient {
+export class BaseAPI {
   protected axiosInstance: AxiosInstance;
-  protected authStrategy: AuthStrategy;
+  protected authStrategy: IAuthStrategy;
 
-  constructor(config: ServiceConfig) {
+  constructor(config: IServiceConfig) {
     this.axiosInstance = axios.create({ baseURL: config.baseUrl });
     this.authStrategy = this.createAuthStrategy(config.auth);
 
@@ -33,7 +33,7 @@ export class BaseClient {
     });
   }
 
-  private createAuthStrategy(authConfig: AuthConfig): AuthStrategy {
+  private createAuthStrategy(authConfig: IAuthConfig): IAuthStrategy {
     switch (authConfig.type) {
       case 'oauth':
         return new OAuthStrategy(authConfig);

@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "ts-node packages/core/src/index.ts",
     "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\" && eslint . --fix",
     "lint": "eslint .",
     "test": "yarn workspaces foreach run test --parallel",

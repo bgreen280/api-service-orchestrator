@@ -1,7 +1,6 @@
 import typescript from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import globals from 'globals';
-import js from '@eslint/js';
 import prettier from 'eslint-plugin-prettier';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -10,18 +9,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default [
-  js.configs.recommended,
+  // Base configuration for JavaScript files
   {
-    ignores: [
-      '**/data/**',
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/.temp/**',
-      '**/.data/**',
-    ],
+    files: ['**/*.{js,mjs,cjs}'],
+    ignores: ['**/.temp/**'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    plugins: {
+      prettier,
+    },
+    rules: {
+      eqeqeq: ['warn', 'always'],
+      curly: ['warn', 'all'],
+      'prettier/prettier': 'error',
+    },
   },
+  // Configuration for TypeScript files
   {
-    files: ['**/*.{js,mjs,cjs,ts,tsx}'],
+    files: ['**/*.{ts,tsx}'],
+    ignores: ['**/.temp/**'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -52,8 +60,6 @@ export default [
         { argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/no-floating-promises': 'warn',
-      eqeqeq: ['warn', 'always'],
-      curly: ['warn', 'all'],
       'prettier/prettier': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',

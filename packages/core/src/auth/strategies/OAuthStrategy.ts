@@ -19,7 +19,7 @@ export class OAuthStrategy extends AuthStrategy {
   }
 
   async getAuthHeader(): Promise<Record<string, string>> {
-    if (!this.accessToken) {
+    if (!(this.accessToken ?? '')) {
       await this.authenticate();
     }
     return { Authorization: `Bearer ${this.accessToken}` };
@@ -44,7 +44,7 @@ export class OAuthStrategy extends AuthStrategy {
           );
           this.config.oAuth2Client.setCredentials(tokens);
 
-          if (!tokens.access_token) {
+          if (!(tokens.access_token ?? '')) {
             throw new Error('Failed to obtain access token');
           }
 
@@ -66,11 +66,11 @@ export class OAuthStrategy extends AuthStrategy {
         }
       });
 
-      this.server = app.listen(this.config.callbackPort, () => {
+      this.server = app.listen(this.config.callbackPort, async () => {
         console.log(
           `OAuth callback server is running on http://localhost:${this.config.callbackPort}`,
         );
-        this.openAuthUrl();
+        await this.openAuthUrl();
       });
     });
   }

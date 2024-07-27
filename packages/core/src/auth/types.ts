@@ -1,5 +1,7 @@
 import { OAuth2Client } from 'google-auth-library';
 
+export type IOAuth2Client = OAuth2Client
+
 export type AuthType = 'oauth' | 'apiKey' | 'pat' | 'hmac' | 'jwt';
 
 export interface IBaseAuthConfig {
@@ -10,9 +12,10 @@ export interface IOAuthConfig extends IBaseAuthConfig {
   type: 'oauth';
   clientId: string;
   clientSecret: string;
-  oAuth2Client: OAuth2Client;
+  oAuth2Client: IOAuth2Client;
   callbackPort: number;
   scopes: string[];
+  redirectUri: string;
 }
 
 export interface IApiKeyConfig extends IBaseAuthConfig {

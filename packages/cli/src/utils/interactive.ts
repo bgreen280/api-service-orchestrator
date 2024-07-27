@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import { ICommandList, ICommandChoice } from '../types';
 
 export async function choosePackageAndCommand(commands: ICommandList): Promise<ICommandChoice> {
-  const answers = await inquirer.prompt([
+  const answers = await inquirer.prompt<ICommandChoice>([
     {
       type: 'list',
       name: 'packageName',
@@ -13,8 +13,8 @@ export async function choosePackageAndCommand(commands: ICommandList): Promise<I
       type: 'list',
       name: 'commandName',
       message: 'Select a command:',
-      choices: (answers) => commands[answers.packageName],
+      choices: (answers: { packageName: string }) => commands[answers.packageName],
     },
   ]);
-  return answers as ICommandChoice;
+  return answers;
 }

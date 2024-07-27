@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { ICliConfig } from '../types';
-import { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import { google } from '@apiso/core';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
 
 dotenv.config();
 
@@ -18,18 +19,32 @@ export async function loadConfig(): Promise<ICliConfig> {
 }
 
 function loadYoutubeAuthConfig(): IAuthConfig {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.YOUTUBE_CLIENT_ID!,
+    process.env.YOUTUBE_CLIENT_SECRET!,
+    process.env.YOUTUBE_REDIRECT_URI!
+  );
+
   return {
     type: 'oauth',
     clientId: process.env.YOUTUBE_CLIENT_ID!,
     clientSecret: process.env.YOUTUBE_CLIENT_SECRET!,
     redirectUri: process.env.YOUTUBE_REDIRECT_URI!,
     scopes: ['https://www.googleapis.com/auth/youtube.readonly'],
+    oAuth2Client: oauth2Client,
+    callbackPort: 3000, // You may want to make this configurable
   };
 }
 
 function loadYoutubeConnectorConfig(): IConnectorConfig {
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.YOUTUBE_CLIENT_ID!,
+    process.env.YOUTUBE_CLIENT_SECRET!,
+    process.env.YOUTUBE_REDIRECT_URI!
+  );
   return {
     type: 'googleapis',
+    auth: oauth2Client,
   };
 }
 

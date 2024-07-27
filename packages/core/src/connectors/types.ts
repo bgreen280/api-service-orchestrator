@@ -1,4 +1,4 @@
-import { OAuth2Client } from 'google-auth-library';
+import { IOAuth2Client } from "../auth";
 
 export type IConnectorType = 'axios' | 'googleapis';
 
@@ -15,7 +15,7 @@ export interface IAxiosConnectorConfig extends IBaseConnectorConfig {
 
 export interface IGoogleapisConnectorConfig extends IBaseConnectorConfig {
   type: 'googleapis';
-  auth: OAuth2Client;
+  auth: IOAuth2Client;
 }
 
 export type IConnectorConfig = IAxiosConnectorConfig | IGoogleapisConnectorConfig;

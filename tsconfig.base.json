@@ -15,7 +15,8 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@apiso/*": ["packages/*/src"]
+      "@apiso/*": ["packages/*/src"],
+      "@apiso/services/*": ["packages/services/*/src"]
     }
   },
   "exclude": ["node_modules", "dist"]

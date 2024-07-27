@@ -5,7 +5,7 @@
  * @returns The formatted time string in HH:mm:ss.
  * @throws {TypeError} Throws if totalDuration is not a non-negative number.
  */
-const convertSecondsToHours = (totalDuration: number): string => {
+export const convertSecondsToHours = (totalDuration: number): string => {
   if (typeof totalDuration !== 'number' || totalDuration < 0 || !Number.isFinite(totalDuration)) {
     throw new TypeError('Total duration must be a non-negative finite number');
   }
@@ -18,9 +18,3 @@ const convertSecondsToHours = (totalDuration: number): string => {
 
   return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 };
-
-const TimeUtils = {
-  convertSecondsToHours,
-} as const;
-
-export { convertSecondsToHours, TimeUtils };

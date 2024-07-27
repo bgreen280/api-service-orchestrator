@@ -1,11 +1,3 @@
-import { IBaseAuthConfig } from '../types';
-
-export interface AuthStrategy {
-  getAuthHeader(): Promise<Record<string, string>>;
-}
-
-export abstract class BaseAuthStrategy<T extends IBaseAuthConfig> implements AuthStrategy {
-  constructor(protected config: T) {} // Generic config type
-
+export abstract class AuthStrategy {
   abstract getAuthHeader(): Promise<Record<string, string>>;
 }

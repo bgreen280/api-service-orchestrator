@@ -8,7 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "ts-node packages/core/src/index.ts",
+    "start": "ts-node packages/cli/src/index.ts",
+    "dev": "ts-node packages/commands/dev.ts",
     "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\" && eslint . --fix",
     "lint": "eslint .",
     "test": "yarn workspaces foreach run test --parallel",
@@ -16,7 +17,9 @@
     "clean": "rimraf ./packages/*/dist"
   },
   "dependencies": {
-    "zx": "^7.2.3"
+    "zx": "^7.2.3",
+    "dotenv": "^16.0.3",
+    "inquirer": "^8.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.24.9",

@@ -2,8 +2,6 @@
   "include": [
     "eslint.config.mjs",
     "jest.config.ts",
-    "lint-runner.mjs",
     "tools/scripts/start.js",
-    "tsconfig-paths-bootstrap.mjs"
   ]
 }

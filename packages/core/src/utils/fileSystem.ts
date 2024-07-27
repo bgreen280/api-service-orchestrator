@@ -10,7 +10,7 @@ interface FileReadOptions {
  * @returns The file content.
  * @throws Error if the file cannot be read.
  */
-const getFile = (filePath: string): string => {
+export const getFile = (filePath: string): string => {
   try {
     return fs.readFileSync(filePath, { encoding: 'utf8' });
   } catch (error) {
@@ -26,7 +26,7 @@ const getFile = (filePath: string): string => {
  * @returns The parsed JSON content.
  * @throws Error if the file cannot be read or parsed.
  */
-const getFileContentAsJSON = (
+export const getFileContentAsJSON = (
   filePath: string,
   options: FileReadOptions = { encoding: 'utf8' }
 ): unknown => {
@@ -45,7 +45,7 @@ const getFileContentAsJSON = (
  * @returns List of file names.
  * @throws Error if the directory cannot be read.
  */
-const getFiles = (searchDir: string): string[] => {
+export const getFiles = (searchDir: string): string[] => {
   try {
     return fs.readdirSync(searchDir);
   } catch (error) {
@@ -60,7 +60,7 @@ const getFiles = (searchDir: string): string[] => {
  * @returns True if the file exists, false otherwise.
  * @throws Error if the file presence cannot be checked.
  */
-const isFilePresent = (filePath: string): boolean => {
+export const isFilePresent = (filePath: string): boolean => {
   try {
     return fs.existsSync(filePath);
   } catch (error) {
@@ -75,7 +75,7 @@ const isFilePresent = (filePath: string): boolean => {
  * @param content - Content to write to the file.
  * @throws Error if the file cannot be written.
  */
-const setFile = (name: string, content: string | Buffer): void => {
+export const setFile = (name: string, content: string | Buffer): void => {
   try {
     fs.writeFileSync(name, content);
   } catch (error) {
@@ -83,13 +83,3 @@ const setFile = (name: string, content: string | Buffer): void => {
     throw error;
   }
 };
-
-const FileUtils = {
-  getFile,
-  getFileContentAsJSON,
-  getFiles,
-  isFilePresent,
-  setFile,
-};
-
-export { getFile, getFileContentAsJSON, getFiles, isFilePresent, setFile, FileUtils };

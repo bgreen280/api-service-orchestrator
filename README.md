@@ -34,73 +34,75 @@ features:
 ### design
 
 ```mermaid
-graph TD
-    A[CLI Package] --> B[Core Package]
-    A --> C[YouTube Package]
-    A --> D[Raindrop Package]
-    A --> E[Google Drive Package]
-    C --> B
-    D --> B
-    E --> B
-    B --> F[BaseClient]
-    B --> G[Auth Strategies]
-    F --> H[Axios]
-    G --> I[OAuth]
-    G --> J[API Key]
+graph TB
+
+subgraph Interface_Layer["Interface Layer"]
+  CLI[CLI Interface]
+end
+
+subgraph Command_Layer["Command Layer"]
+  CPC[Cross-Package Commands]
+  CR[Command Registry]
+  PC[Package Commands]
+end
+
+subgraph Service_Layer["Service Layer"]
+  SR[Service Registry]
+  YouTube[YouTube Service]
+  Raindrop[Raindrop Service]
+  OtherServices[Other Services]
+end
+
+subgraph Core_Module["Core Module"]
+  API[API Module]
+  Auth[Auth Module]
+  Utils[Utils Module]
+  Connectors[Connectors Module]
+end
+
+
+CLI --> CR
+CPC --> CR
+PC --> CR
+PC --> SR
+SR --> YouTube
+SR --> Raindrop
+SR --> OtherServices
+YouTube --> API
+Raindrop --> API
+OtherServices --> API
+API --> Auth
+Auth --> Utils
+API --> Utils
+API --> Connectors
+Connectors --> Utils
+
+classDef core fill:#E7F2FA,stroke:#2C3E50,stroke-width:2px;
+classDef service fill:#E5F5E0,stroke:#2C3E50,stroke-width:2px;
+classDef command fill:#FCE4EC,stroke:#2C3E50,stroke-width:2px;
+classDef interface fill:#F4ECF7,stroke:#2C3E50,stroke-width:2px;
+
+class API,Auth,Utils,Connectors core;
+class SR,YouTube,Raindrop,OtherServices service;
+class CR,CPC,PC command;
+class CLI interface;
 ```
 
 ### dir
 
 ```
-@your-project/
-├── packages/
-│   ├── core/
-│   │   ├── src/
-│   │   │   ├── types.ts
-│   │   │   ├── BaseClient.ts
-│   │   │   ├── auth/
-│   │   │   │   ├── AuthStrategy.ts
-│   │   │   │   ├── OAuthStrategy.ts
-│   │   │   │   └── ApiKeyStrategy.ts
-│   │   │   ├── errors.ts
-│   │   │   └── index.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── youtube/
-│   │   ├── src/
-│   │   │   ├── YouTubeClient.ts
-│   │   │   ├── types.ts
-│   │   │   └── index.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── raindrop/
-│   │   ├── src/
-│   │   │   ├── RaindropClient.ts
-│   │   │   ├── types.ts
-│   │   │   └── index.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── google-drive/
-│   │   ├── src/
-│   │   │   ├── GoogleDriveClient.ts
-│   │   │   ├── types.ts
-│   │   │   └── index.ts
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   └── cli/
-│       ├── src/
-│       │   ├── commands/
-│       │   │   ├── youtube.ts
-│       │   │   ├── raindrop.ts
-│       │   │   └── googleDrive.ts
-│       │   ├── index.ts
-│       │   └── cli.ts
-│       ├── package.json
-│       └── tsconfig.json
-├── tsconfig.json
-├── package.json
-├── lerna.json
-└── README.md
+/packages
+  /cli - Implements the command-line interface, exposes commands module
+  /commands - Defines and implements executable commands, contains dev script for quick use
+  /core - Aggregates and re-exports foundational modules (API, Auth, Utils)
+    /api - Provides base API functionality for making network requests
+    /auth - Manages authentication strategies and token handling
+    /connectors - Manages connector methods and tools
+    /utils - Contains utility functions used across the project
+  /services - Contains service-specific implementations (e.g., Raindrop, YouTube)
+    /sample
+    /raindrop
+    /youtube
 ```
 
 ## TODO
@@ -145,3 +147,15 @@ graph TD
 - [Zapier](https://zapier.com/)
 - [MuleSoft](https://www.mulesoft.com/)
 - [n8n](https://n8n.io/)
+
+
+
+modules:
+
+core = api + auth + utils
+
+package = api(service)
+
+commands + core(service-package)
+
+cli --> commands

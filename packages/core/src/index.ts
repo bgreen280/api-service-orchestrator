@@ -1,5 +1,8 @@
+// core/index.ts
 export { google, youtube_v3 } from 'googleapis';
 export { OAuth2Client } from 'google-auth-library';
-export { BaseAPI } from './BaseAPI';
+export * from './api';
+export * from './auth';
+export * from './connectors';
+export * from './utils';
 export * from './types';
-export * from './constants';

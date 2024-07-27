@@ -13,9 +13,10 @@
   },
   "dependencies": {
     "@apiso/core": "workspace:*",
-    "@apiso/raindrop": "workspace:*",
-    "@apiso/youtube": "workspace:*",
-    "commander": "^9.0.0"
+    "@apiso/commands": "workspace:*",
+    "commander": "^9.0.0",
+    "inquirer": "^8.2.4",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",

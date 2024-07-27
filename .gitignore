@@ -8,6 +8,8 @@
 Thumbs.db
 
 # Data and cache directories
+.data/
+.temp/
 data/*/*
 .cache/
 

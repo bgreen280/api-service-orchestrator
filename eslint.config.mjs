@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 export default [
   js.configs.recommended,
   {
-    ignores: ['**/data/**', '**/node_modules/**', '**/dist/**'],
+    ignores: ['**/data/**', '**/node_modules/**', '**/dist/**', '**/.temp/**', '**/.data/**'],
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
@@ -21,7 +21,7 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: ['./packages/*/tsconfig.json', './tsconfig.eslint.json'],
+        project: ['./tsconfig.json', './packages/*/tsconfig.json', './tsconfig.eslint.json'],
         tsconfigRootDir: __dirname,
       },
       globals: {
@@ -35,13 +35,18 @@ export default [
     },
     rules: {
       ...typescript.configs['recommended'].rules,
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-floating-promises': 'error',
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
       'prettier/prettier': 'error',
+      '@typescript-eslint/strict-boolean-expressions': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-unsafe-return': 'error',
     },
   },
 ];

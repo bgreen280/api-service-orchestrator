@@ -12,6 +12,7 @@
     "start": "ts-node packages/cli/src/index.ts",
     "dev": "ts-node packages/commands/dev.ts",
     "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\" && eslint . --fix",
+    "prettier": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\"",
     "lint": "eslint .",
     "test": "yarn workspaces foreach run test --parallel",
     "build": "yarn workspaces foreach run build",

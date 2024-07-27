@@ -3,6 +3,6 @@
   "references": [
     { "path": "./youtube" },
     { "path": "./raindrop" }
-    // Add new services here as they are created
-  ]
+  ],
+  "include": ["youtube/src/**/*.ts", "raindrop/src/**/*.ts"]
 }

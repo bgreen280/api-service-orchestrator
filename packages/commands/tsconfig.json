@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src", "dev.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"],
   "references": [
     { "path": "../core" },

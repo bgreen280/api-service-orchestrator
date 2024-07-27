@@ -1,7 +1,6 @@
 import { Server } from 'http';
 import express, { Request, Response } from 'express';
-import open from 'open';
-import { OAuth2Client, Credentials } from 'google-auth-library';
+import { Credentials } from 'google-auth-library';
 import { AuthStrategy } from '../AuthStrategy';
 import type { IOAuthConfig } from '../types';
 import { getFileContentAsJSON, isFilePresent, setFile } from '../../utils/fileSystem';
@@ -15,7 +14,7 @@ export class OAuthStrategy extends AuthStrategy {
     super();
   }
 
-  async getAuthHeader(_options?: Record<string, any>): Promise<Record<string, string>> {
+  async getAuthHeader(): Promise<Record<string, string>> {
     if (!this.accessToken) {
       await this.authenticate();
     }
@@ -68,7 +67,7 @@ export class OAuthStrategy extends AuthStrategy {
     });
   }
 
-  private openAuthUrl(): void {
+  private async openAuthUrl(): Promise<void> {
     const authUrl = this.config.oAuth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: this.config.scopes,
@@ -78,7 +77,13 @@ export class OAuthStrategy extends AuthStrategy {
     console.log(
       `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`
     );
-    open(authUrl).catch(console.error);
+
+    try {
+      const open = (await import('open')).default;
+      await open(authUrl);
+    } catch (error) {
+      console.error('Failed to open the browser automatically:', error);
+    }
   }
 
   private loadTokens(): Credentials | null {

@@ -12,11 +12,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@apiso/core": "workspace:*",
     "@apiso/commands": "workspace:*",
+    "@apiso/core": "workspace:*",
     "commander": "^9.0.0",
-    "inquirer": "^8.2.4",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "inquirer": "^8.2.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",

@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@apiso/core": "workspace:*",
-    "@apiso/youtube": "workspace:*",
     "@apiso/raindrop": "workspace:*",
+    "@apiso/youtube": "workspace:*",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {

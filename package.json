@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/services/*"
   ],
   "scripts": {
     "start": "ts-node packages/cli/src/index.ts",
@@ -17,9 +18,9 @@
     "clean": "rimraf ./packages/*/dist"
   },
   "dependencies": {
-    "zx": "^7.2.3",
     "dotenv": "^16.0.3",
-    "inquirer": "^8.2.4"
+    "inquirer": "^8.2.4",
+    "zx": "^7.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.24.9",

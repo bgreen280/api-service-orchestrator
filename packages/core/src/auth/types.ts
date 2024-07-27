@@ -1,6 +1,6 @@
 import { OAuth2Client } from 'google-auth-library';
 
-export type IOAuth2Client = OAuth2Client
+export type IOAuth2Client = OAuth2Client;
 
 export type AuthType = 'oauth' | 'apiKey' | 'pat' | 'hmac' | 'jwt';
 

@@ -17,6 +17,7 @@ import { BaseAPI, AuthFactory, ConnectorFactory } from '@apiso/core';
 ```
 
 Refer to the documentation for each module for specific usage instructions.
+
 ```json
 // core/tsconfig.json
 {

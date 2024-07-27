@@ -61,7 +61,9 @@ export class OAuthStrategy extends AuthStrategy {
       });
 
       this.server = app.listen(this.config.callbackPort, () => {
-        console.log(`OAuth callback server is running on http://localhost:${this.config.callbackPort}`);
+        console.log(
+          `OAuth callback server is running on http://localhost:${this.config.callbackPort}`
+        );
         this.openAuthUrl();
       });
     });

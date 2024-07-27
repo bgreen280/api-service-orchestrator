@@ -1,4 +1,4 @@
-import { IOAuth2Client } from "../auth";
+import { IOAuth2Client } from '../auth';
 
 export type IConnectorType = 'axios' | 'googleapis';
 

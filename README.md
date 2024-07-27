@@ -148,8 +148,6 @@ class CLI interface;
 - [MuleSoft](https://www.mulesoft.com/)
 - [n8n](https://n8n.io/)
 
-
-
 modules:
 
 core = api + auth + utils

@@ -23,7 +23,7 @@ const youtubeAuthConfig = {
 
 const youtubeConnectorConfig = {
   type: 'googleapis' as const,
-  auth: oauth2Client
+  auth: oauth2Client,
 };
 
 const raindropAuthConfig = {

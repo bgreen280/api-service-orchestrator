@@ -8,13 +8,13 @@ export class JWTStrategy extends AuthStrategy {
   }
 
   async getAuthHeader(
-    options?: Record<string, any>,
+    options?: Record<string, unknown>,
   ): Promise<Record<string, string>> {
     const token = this.generateJWT(options);
     return { Authorization: `Bearer ${token}` };
   }
 
-  private generateJWT(options?: Record<string, any>): string {
+  private generateJWT(options?: Record<string, unknown>): string {
     return jwt.sign(
       { ...this.config.payload, ...options },
       this.config.secretKey,

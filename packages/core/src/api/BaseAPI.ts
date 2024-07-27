@@ -17,7 +17,7 @@ export abstract class BaseAPI {
   protected async request<T>(
     method: string,
     url: string,
-    data?: any,
+    data?: unknown,
   ): Promise<T> {
     const headers = await this.authStrategy.getAuthHeader({
       method,

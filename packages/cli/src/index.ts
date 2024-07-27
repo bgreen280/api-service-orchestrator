@@ -20,10 +20,10 @@ program
   .description('Run a specific command from a package')
   .action(async (packageName: string, commandName: string) => {
     const config: ICliConfig = await loadConfig();
-    const command = (commands as ICommands)[`${packageName}${commandName}`];
-    if (command) {
+    try {
+      const command = (commands as ICommands)[`${packageName}${commandName}`];
       await command(config);
-    } else {
+    } catch (error) {
       console.error(
         `Command ${commandName} not found in package ${packageName}`,
       );
@@ -38,11 +38,11 @@ program
     const commandList = await getCommandsFromPackages();
     const { packageName, commandName } =
       await choosePackageAndCommand(commandList);
-    const config: ICliConfig = await loadConfig();
-    const command = (commands as ICommands)[`${packageName}${commandName}`];
-    if (command) {
+    try {
+      const command = (commands as ICommands)[`${packageName}${commandName}`];
+      const config: ICliConfig = await loadConfig();
       await command(config);
-    } else {
+    } catch (error) {
       console.error(
         `Command ${commandName} not found in package ${packageName}`,
       );

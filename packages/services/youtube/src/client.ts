@@ -17,7 +17,7 @@ export class YouTubeClient {
       const response = await this.api.getPlaylists(nextPageToken);
       allPlaylists = allPlaylists.concat(response.items);
       nextPageToken = response.nextPageToken;
-    } while (nextPageToken);
+    } while (nextPageToken ?? '');
 
     return allPlaylists;
   }
@@ -33,7 +33,7 @@ export class YouTubeClient {
       );
       allItems = allItems.concat(response.items);
       nextPageToken = response.nextPageToken;
-    } while (nextPageToken);
+    } while (nextPageToken ?? '');
 
     return allItems;
   }
@@ -45,7 +45,7 @@ export class YouTubeClient {
     const playlists = await this.getPlaylists();
 
     for (const playlist of playlists) {
-      if (!playlist.id) {
+      if (!(playlist.id ?? '')) {
         continue;
       }
       try {

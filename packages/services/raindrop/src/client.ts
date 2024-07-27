@@ -66,7 +66,7 @@ export class RaindropClient {
 
   async updateTagsInBulk(): Promise<void> {
     const tags = await this.getTags(RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID);
-    const shouldBeUpdated = (element: ITag) =>
+    const shouldBeUpdated = (element: ITag): boolean =>
       element.parent['$id'] === RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID;
 
     for (const element of tags.items) {
@@ -83,7 +83,7 @@ export class RaindropClient {
 
   async bulkUpdateTagsInCollection(): Promise<void> {
     const collections = await this.getCollections();
-    const shouldBeUpdated = (element: ICollection) =>
+    const shouldBeUpdated = (element: ICollection): boolean =>
       element.parent['$id'] === RAINDROP_CONSTANTS.RAINDROP_RESOURCES_ID;
 
     for (const element of collections.items) {

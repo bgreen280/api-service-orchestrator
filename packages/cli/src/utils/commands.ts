@@ -6,9 +6,7 @@ export async function getCommandsFromPackages(): Promise<ICommandList> {
 
   for (const [key] of Object.entries(commands)) {
     const [packageName, commandName] = key.split(/(?=[A-Z])/);
-    if (!commandList[packageName]) {
-      commandList[packageName] = [];
-    }
+    commandList[packageName] = [];
     commandList[packageName].push(commandName);
   }
 

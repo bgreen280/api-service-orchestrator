@@ -1,3 +1,3 @@
 export interface Connector {
-  request<T>(config: any): Promise<T>;
+  request<T>(config: unknown): Promise<T>;
 }

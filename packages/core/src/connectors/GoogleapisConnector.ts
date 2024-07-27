@@ -3,7 +3,7 @@ import { Connector } from './Connector';
 import type { IGoogleapisConnectorConfig } from './types';
 
 export class GoogleapisConnector implements Connector {
-  private client: any;
+  private client: unknown;
 
   constructor(config: IGoogleapisConnectorConfig) {
     this.client = google.youtube({
@@ -12,7 +12,7 @@ export class GoogleapisConnector implements Connector {
     });
   }
 
-  async request<T>(config: any): Promise<T> {
+  async request<T>(config: unknown): Promise<T> {
     try {
       const { data } = await this.client[config.resource][config.method](
         config.params,

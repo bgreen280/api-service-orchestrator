@@ -36,7 +36,7 @@ const raindropConnectorConfig = {
   baseURL: 'https://api.raindrop.io/rest/v1',
 };
 
-async function main() {
+async function main(): Promise<void> {
   try {
     const result = await migrateYoutubePlaylistItemsToRaindrop(
       youtubeAuthConfig,
@@ -50,4 +50,4 @@ async function main() {
   }
 }
 
-main();
+void main();

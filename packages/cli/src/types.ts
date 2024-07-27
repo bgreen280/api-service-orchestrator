@@ -27,5 +27,5 @@ export interface ICommand {
 }
 
 export interface ICommands {
-  [key: string]: (...args: any[]) => Promise<any>;
+  [key: string]: (...args: unknown[]) => Promise<unknown>;
 }

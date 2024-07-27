@@ -13,7 +13,7 @@ export class HMACStrategy extends AuthStrategy {
     data?: string;
   }): Promise<Record<string, string>> {
     const timestamp = Date.now().toString();
-    const message = `${options.method}\n${options.url}\n${timestamp}\n${options.data || ''}`;
+    const message = `${options.method}\n${options.url}\n${timestamp}\n${(options.data ?? '') || ''}`;
     const signature = crypto
       .createHmac('sha256', this.config.secretKey)
       .update(message)

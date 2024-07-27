@@ -6,7 +6,7 @@ export class ApiKeyStrategy extends AuthStrategy {
     super();
   }
 
-  async getAuthHeader(): Promise<Record<string, string>> {
+  async getAuthHeader(_options?: Record<string, any>): Promise<Record<string, string>> {
     return { Authorization: `Bearer ${this.config.apiKey}` };
   }
 }

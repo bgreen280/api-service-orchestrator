@@ -15,7 +15,7 @@ export class OAuthStrategy extends AuthStrategy {
     super();
   }
 
-  async getAuthHeader(): Promise<Record<string, string>> {
+  async getAuthHeader(_options?: Record<string, any>): Promise<Record<string, string>> {
     if (!this.accessToken) {
       await this.authenticate();
     }

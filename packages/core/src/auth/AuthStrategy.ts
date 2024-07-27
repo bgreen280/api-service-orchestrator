@@ -1,3 +1,3 @@
 export abstract class AuthStrategy {
-  abstract getAuthHeader(): Promise<Record<string, string>>;
+  abstract getAuthHeader(options?: Record<string, any>): Promise<Record<string, string>>;
 }

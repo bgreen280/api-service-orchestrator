@@ -1,8 +1,5 @@
 {
   "files": [],
-  "references": [
-    { "path": "./youtube" },
-    { "path": "./raindrop" }
-  ],
+  "references": [{ "path": "./youtube" }, { "path": "./raindrop" }],
   "include": ["youtube/src/**/*.ts", "raindrop/src/**/*.ts"]
 }

@@ -14,7 +14,9 @@ export class GoogleapisConnector implements Connector {
 
   async request<T>(config: any): Promise<T> {
     try {
-      const { data } = await this.client[config.resource][config.method](config.params);
+      const { data } = await this.client[config.resource][config.method](
+        config.params,
+      );
       return data as T;
     } catch (error) {
       throw new Error(`Googleapis error: ${(error as Error).message}`);

@@ -18,4 +18,6 @@ export interface IGoogleapisConnectorConfig extends IBaseConnectorConfig {
   auth: IOAuth2Client;
 }
 
-export type IConnectorConfig = IAxiosConnectorConfig | IGoogleapisConnectorConfig;
+export type IConnectorConfig =
+  | IAxiosConnectorConfig
+  | IGoogleapisConnectorConfig;

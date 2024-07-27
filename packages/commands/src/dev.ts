@@ -8,7 +8,7 @@ dotenv.config();
 const oauth2Client = new google.auth.OAuth2(
   process.env.YOUTUBE_CLIENT_ID!,
   process.env.YOUTUBE_CLIENT_SECRET!,
-  process.env.YOUTUBE_REDIRECT_URI!
+  process.env.YOUTUBE_REDIRECT_URI!,
 );
 
 const youtubeAuthConfig = {
@@ -42,7 +42,7 @@ async function main() {
       youtubeAuthConfig,
       youtubeConnectorConfig,
       raindropAuthConfig,
-      raindropConnectorConfig
+      raindropConnectorConfig,
     );
     console.log(result);
   } catch (error) {

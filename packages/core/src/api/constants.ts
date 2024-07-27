@@ -11,5 +11,8 @@ export const RAINDROP_CONSTANTS = {
 };
 
 export const YOUTUBE_CONSTANTS = {
-  PLAYLIST_ITEM_DATA_PATH: path.resolve(process.cwd(), '.data/youtube/playlistItems.json'),
+  PLAYLIST_ITEM_DATA_PATH: path.resolve(
+    process.cwd(),
+    '.data/youtube/playlistItems.json',
+  ),
 };

@@ -8,18 +8,29 @@ export async function migrateYoutubePlaylistItemsToRaindrop(
   youtubeAuthConfig: IAuthConfig,
   youtubeConnectorConfig: IConnectorConfig,
   raindropAuthConfig: IAuthConfig,
-  raindropConnectorConfig: IConnectorConfig
+  raindropConnectorConfig: IConnectorConfig,
 ): Promise<ICommandResult> {
-  const youtubeClient = new YouTubeClient(youtubeAuthConfig, youtubeConnectorConfig);
-  const raindropClient = new RaindropClient(raindropAuthConfig, raindropConnectorConfig);
+  const youtubeClient = new YouTubeClient(
+    youtubeAuthConfig,
+    youtubeConnectorConfig,
+  );
+  const raindropClient = new RaindropClient(
+    raindropAuthConfig,
+    raindropConnectorConfig,
+  );
 
   try {
     const playlists = await youtubeClient.getPlaylists();
 
     for (const playlist of playlists) {
-      const playlistItems = await youtubeClient.getPlaylistItemsById(playlist.id!);
+      const playlistItems = await youtubeClient.getPlaylistItemsById(
+        playlist.id!,
+      );
       const raindrops = playlistItems.map(playlistItem =>
-        constructRaindropFromYoutubePlaylistItem(playlist.snippet!.title!, playlistItem)
+        constructRaindropFromYoutubePlaylistItem(
+          playlist.snippet!.title!,
+          playlistItem,
+        ),
       );
       await raindropClient.createRaindrops(raindrops);
     }

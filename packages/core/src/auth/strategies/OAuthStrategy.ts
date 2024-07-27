@@ -3,7 +3,11 @@ import express, { Request, Response } from 'express';
 import { Credentials } from 'google-auth-library';
 import { AuthStrategy } from '../AuthStrategy';
 import type { IOAuthConfig } from '../types';
-import { getFileContentAsJSON, isFilePresent, setFile } from '../../utils/fileSystem';
+import {
+  getFileContentAsJSON,
+  isFilePresent,
+  setFile,
+} from '../../utils/fileSystem';
 import { GOOGLE_CONSTANTS } from '../../api/constants';
 
 export class OAuthStrategy extends AuthStrategy {
@@ -35,7 +39,9 @@ export class OAuthStrategy extends AuthStrategy {
       app.get('/oauth2callback', async (req: Request, res: Response) => {
         const { code } = req.query;
         try {
-          const { tokens } = await this.config.oAuth2Client.getToken(code as string);
+          const { tokens } = await this.config.oAuth2Client.getToken(
+            code as string,
+          );
           this.config.oAuth2Client.setCredentials(tokens);
 
           if (!tokens.access_token) {
@@ -62,7 +68,7 @@ export class OAuthStrategy extends AuthStrategy {
 
       this.server = app.listen(this.config.callbackPort, () => {
         console.log(
-          `OAuth callback server is running on http://localhost:${this.config.callbackPort}`
+          `OAuth callback server is running on http://localhost:${this.config.callbackPort}`,
         );
         this.openAuthUrl();
       });
@@ -77,7 +83,7 @@ export class OAuthStrategy extends AuthStrategy {
     });
 
     console.log(
-      `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`
+      `If the browser does not open automatically, please navigate to the following URL: ${authUrl}`,
     );
 
     try {

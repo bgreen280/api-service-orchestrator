@@ -34,18 +34,22 @@ export class RaindropClient {
     return this.api.getCollections();
   }
 
-  async getTags(collectionId: string | null = null): Promise<{ items: ITag[] }> {
+  async getTags(
+    collectionId: string | null = null,
+  ): Promise<{ items: ITag[] }> {
     return this.api.getTags(collectionId);
   }
 
   async updateTags(
     params: IUpdateTagsParams,
-    collectionId: string | null = null
+    collectionId: string | null = null,
   ): Promise<unknown> {
     return this.api.updateTags(params, collectionId);
   }
 
-  async getRaindropsByCollectionId(collectionId: string): Promise<{ items: IRaindrop[] }> {
+  async getRaindropsByCollectionId(
+    collectionId: string,
+  ): Promise<{ items: IRaindrop[] }> {
     return this.api.getRaindropsByCollectionId(collectionId);
   }
 
@@ -55,7 +59,7 @@ export class RaindropClient {
 
   async updateRaindropsByCollectionId(
     collectionId: string,
-    params: IUpdateTagsParams
+    params: IUpdateTagsParams,
   ): Promise<unknown> {
     return this.api.updateRaindropsByCollectionId(collectionId, params);
   }

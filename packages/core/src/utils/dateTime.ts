@@ -6,7 +6,11 @@
  * @throws {TypeError} Throws if totalDuration is not a non-negative number.
  */
 export const convertSecondsToHours = (totalDuration: number): string => {
-  if (typeof totalDuration !== 'number' || totalDuration < 0 || !Number.isFinite(totalDuration)) {
+  if (
+    typeof totalDuration !== 'number' ||
+    totalDuration < 0 ||
+    !Number.isFinite(totalDuration)
+  ) {
     throw new TypeError('Total duration must be a non-negative finite number');
   }
 

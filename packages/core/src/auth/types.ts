@@ -44,4 +44,9 @@ export interface IJWTConfig extends IBaseAuthConfig {
   };
 }
 
-export type IAuthConfig = IOAuthConfig | IApiKeyConfig | IPATConfig | IHMACConfig | IJWTConfig;
+export type IAuthConfig =
+  | IOAuthConfig
+  | IApiKeyConfig
+  | IPATConfig
+  | IHMACConfig
+  | IJWTConfig;

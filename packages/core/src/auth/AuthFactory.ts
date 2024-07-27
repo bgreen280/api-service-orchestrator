@@ -20,7 +20,9 @@ export class AuthFactory {
       case 'jwt':
         return new JWTStrategy(config);
       default:
-        throw new Error(`Unsupported authentication type: ${(config as IAuthConfig).type}`);
+        throw new Error(
+          `Unsupported authentication type: ${(config as IAuthConfig).type}`,
+        );
     }
   }
 }

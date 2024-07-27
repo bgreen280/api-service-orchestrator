@@ -4,7 +4,7 @@ import type { IPlaylistItem } from '@apiso/youtube';
 
 export function constructRaindropFromYoutubePlaylistItem(
   playlistTitle: string,
-  playlistItem: IPlaylistItem
+  playlistItem: IPlaylistItem,
 ): IRaindrop {
   const { snippet } = playlistItem;
   return {

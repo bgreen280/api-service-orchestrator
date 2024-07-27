@@ -27,7 +27,10 @@ export class YouTubeClient {
     let nextPageToken: string | undefined;
 
     do {
-      const response = await this.api.getPlaylistItemsById(playlistId, nextPageToken);
+      const response = await this.api.getPlaylistItemsById(
+        playlistId,
+        nextPageToken,
+      );
       allItems = allItems.concat(response.items);
       nextPageToken = response.nextPageToken;
     } while (nextPageToken);
@@ -35,7 +38,9 @@ export class YouTubeClient {
     return allItems;
   }
 
-  async getAllPlaylistItems(callback?: (items: IPlaylistItem[]) => void): Promise<IPlaylistItem[]> {
+  async getAllPlaylistItems(
+    callback?: (items: IPlaylistItem[]) => void,
+  ): Promise<IPlaylistItem[]> {
     const allPlaylistItems: IPlaylistItem[] = [];
     const playlists = await this.getPlaylists();
 
@@ -50,7 +55,10 @@ export class YouTubeClient {
         }
         allPlaylistItems.push(...playlistItems);
       } catch (err) {
-        console.error(`Failed to fetch items for playlist ID ${playlist.id}:`, err);
+        console.error(
+          `Failed to fetch items for playlist ID ${playlist.id}:`,
+          err,
+        );
       }
     }
 

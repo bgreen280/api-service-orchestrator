@@ -14,8 +14,16 @@ export abstract class BaseAPI {
     this.connector = ConnectorFactory.createConnector(connectorConfig);
   }
 
-  protected async request<T>(method: string, url: string, data?: any): Promise<T> {
-    const headers = await this.authStrategy.getAuthHeader({ method, url, data });
+  protected async request<T>(
+    method: string,
+    url: string,
+    data?: any,
+  ): Promise<T> {
+    const headers = await this.authStrategy.getAuthHeader({
+      method,
+      url,
+      data,
+    });
     return this.connector.request<T>({ method, url, data, headers });
   }
 }

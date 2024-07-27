@@ -31,21 +31,28 @@ export class RaindropAPI extends BaseAPI {
     return this.request<{ items: ICollection[] }>('GET', '/collections');
   }
 
-  async getTags(collectionId: string | null = null): Promise<{ items: ITag[] }> {
+  async getTags(
+    collectionId: string | null = null,
+  ): Promise<{ items: ITag[] }> {
     const endpoint = collectionId ? `/tags/${collectionId}` : '/tags';
     return this.request<{ items: ITag[] }>('GET', endpoint);
   }
 
   async updateTags(
     params: IUpdateTagsParams,
-    collectionId: string | null = null
+    collectionId: string | null = null,
   ): Promise<unknown> {
     const endpoint = collectionId ? `/tags/${collectionId}` : '/tags';
     return this.request<unknown>('PUT', endpoint, params);
   }
 
-  async getRaindropsByCollectionId(collectionId: string): Promise<{ items: IRaindrop[] }> {
-    return this.request<{ items: IRaindrop[] }>('GET', `/raindrops/${collectionId}`);
+  async getRaindropsByCollectionId(
+    collectionId: string,
+  ): Promise<{ items: IRaindrop[] }> {
+    return this.request<{ items: IRaindrop[] }>(
+      'GET',
+      `/raindrops/${collectionId}`,
+    );
   }
 
   async getRaindropById(raindropId: string): Promise<IRaindrop> {
@@ -54,7 +61,7 @@ export class RaindropAPI extends BaseAPI {
 
   async updateRaindropsByCollectionId(
     collectionId: string,
-    params: IUpdateTagsParams
+    params: IUpdateTagsParams,
   ): Promise<unknown> {
     return this.request<unknown>('PUT', `/raindrops/${collectionId}`, params);
   }

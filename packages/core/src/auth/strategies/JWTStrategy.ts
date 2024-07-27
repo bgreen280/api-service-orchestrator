@@ -7,7 +7,9 @@ export class JWTStrategy extends AuthStrategy {
     super();
   }
 
-  async getAuthHeader(options?: Record<string, any>): Promise<Record<string, string>> {
+  async getAuthHeader(
+    options?: Record<string, any>,
+  ): Promise<Record<string, string>> {
     const token = this.generateJWT(options);
     return { Authorization: `Bearer ${token}` };
   }
@@ -16,7 +18,7 @@ export class JWTStrategy extends AuthStrategy {
     return jwt.sign(
       { ...this.config.payload, ...options },
       this.config.secretKey,
-      this.config.options
+      this.config.options,
     );
   }
 }

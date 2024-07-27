@@ -11,7 +11,9 @@ export const getFile = (filePath: string): string => {
   try {
     return fs.readFileSync(filePath, { encoding: 'utf8' });
   } catch (error) {
-    console.error(`Error reading file at ${filePath}: ${(error as Error).message}`);
+    console.error(
+      `Error reading file at ${filePath}: ${(error as Error).message}`,
+    );
     throw error;
   }
 };
@@ -25,13 +27,15 @@ export const getFile = (filePath: string): string => {
  */
 export const getFileContentAsJSON = (
   filePath: string,
-  options: FileReadOptions = { encoding: 'utf8' }
+  options: FileReadOptions = { encoding: 'utf8' },
 ): unknown => {
   try {
     const content = fs.readFileSync(filePath, options);
     return JSON.parse(content);
   } catch (error) {
-    console.error(`Error parsing JSON from file at ${filePath}: ${(error as Error).message}`);
+    console.error(
+      `Error parsing JSON from file at ${filePath}: ${(error as Error).message}`,
+    );
     throw error;
   }
 };
@@ -46,7 +50,9 @@ export const getFiles = (searchDir: string): string[] => {
   try {
     return fs.readdirSync(searchDir);
   } catch (error) {
-    console.error(`Error reading directory at ${searchDir}: ${(error as Error).message}`);
+    console.error(
+      `Error reading directory at ${searchDir}: ${(error as Error).message}`,
+    );
     throw error;
   }
 };
@@ -61,7 +67,9 @@ export const isFilePresent = (filePath: string): boolean => {
   try {
     return fs.existsSync(filePath);
   } catch (error) {
-    console.error(`Error checking presence of file at ${filePath}: ${(error as Error).message}`);
+    console.error(
+      `Error checking presence of file at ${filePath}: ${(error as Error).message}`,
+    );
     throw error;
   }
 };

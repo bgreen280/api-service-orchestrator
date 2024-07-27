@@ -9,7 +9,10 @@ import { ICliConfig, ICommands } from './types';
 
 const program = new Command();
 
-program.name('apiso').description('CLI to manage various API integrations').version('0.1.0');
+program
+  .name('apiso')
+  .description('CLI to manage various API integrations')
+  .version('0.1.0');
 
 // 1. Direct Command Execution (e.g., apiso youtube getPlaylists)
 program
@@ -21,7 +24,9 @@ program
     if (command) {
       await command(config);
     } else {
-      console.error(`Command ${commandName} not found in package ${packageName}`);
+      console.error(
+        `Command ${commandName} not found in package ${packageName}`,
+      );
     }
   });
 
@@ -31,13 +36,16 @@ program
   .description('Start the interactive CLI')
   .action(async () => {
     const commandList = await getCommandsFromPackages();
-    const { packageName, commandName } = await choosePackageAndCommand(commandList);
+    const { packageName, commandName } =
+      await choosePackageAndCommand(commandList);
     const config: ICliConfig = await loadConfig();
     const command = (commands as ICommands)[`${packageName}${commandName}`];
     if (command) {
       await command(config);
     } else {
-      console.error(`Command ${commandName} not found in package ${packageName}`);
+      console.error(
+        `Command ${commandName} not found in package ${packageName}`,
+      );
     }
   });
 
@@ -51,7 +59,7 @@ program
       config.youtube.auth,
       config.youtube.connector,
       config.raindrop.auth,
-      config.raindrop.connector
+      config.raindrop.connector,
     );
   });
 

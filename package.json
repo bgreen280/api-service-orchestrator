@@ -14,6 +14,7 @@
     "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\" && eslint . --fix",
     "prettier": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,css,md}\"",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "yarn workspaces foreach run test --parallel",
     "build": "yarn workspaces foreach run build",
     "clean": "rimraf ./packages/*/dist"

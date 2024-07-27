@@ -1,5 +1,6 @@
-import { BaseAPI, IAuthConfig, IConnectorConfig } from '@apiso/core';
-import { IPlaylist, IPlaylistItem, IPaginatedResponse } from './types';
+import { BaseAPI } from '@apiso/core';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import type { IPlaylist, IPlaylistItem, IPaginatedResponse } from './types';
 
 export class YouTubeAPI extends BaseAPI {
   constructor(authConfig: IAuthConfig, connectorConfig: IConnectorConfig) {

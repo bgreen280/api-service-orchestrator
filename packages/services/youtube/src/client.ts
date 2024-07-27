@@ -1,6 +1,6 @@
-import { IAuthConfig, IConnectorConfig } from '@apiso/core';
 import { YouTubeAPI } from './api';
-import { IPlaylist, IPlaylistItem } from './types';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import type { IPlaylist, IPlaylistItem } from './types';
 
 export class YouTubeClient {
   private api: YouTubeAPI;

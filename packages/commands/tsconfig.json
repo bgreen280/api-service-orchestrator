@@ -8,6 +8,7 @@
   "exclude": ["node_modules", "dist"],
   "references": [
     { "path": "../core" },
-    { "path": "../services" }
+    { "path": "../services/youtube" },
+    { "path": "../services/raindrop" }
   ]
 }

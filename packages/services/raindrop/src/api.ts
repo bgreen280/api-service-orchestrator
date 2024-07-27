@@ -1,5 +1,6 @@
-import { BaseAPI, IAuthConfig, IConnectorConfig } from '@apiso/core';
-import { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
+import { BaseAPI } from '@apiso/core';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import type { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
 
 export class RaindropAPI extends BaseAPI {
   constructor(authConfig: IAuthConfig, connectorConfig: IConnectorConfig) {

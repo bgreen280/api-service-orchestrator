@@ -1,6 +1,6 @@
-import { IRaindrop } from '@apiso/raindrop';
-import { IPlaylistItem } from '@apiso/youtube';
 import { RAINDROP_CONSTANTS } from '@apiso/core';
+import type { IRaindrop } from '@apiso/raindrop';
+import type { IPlaylistItem } from '@apiso/youtube';
 
 export function constructRaindropFromYoutubePlaylistItem(
   playlistTitle: string,

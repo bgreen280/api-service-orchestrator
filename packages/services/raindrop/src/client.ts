@@ -1,6 +1,7 @@
-import { IAuthConfig, IConnectorConfig, RAINDROP_CONSTANTS } from '@apiso/core';
+import { RAINDROP_CONSTANTS } from '@apiso/core';
 import { RaindropAPI } from './api';
-import { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import type { IRaindrop, ICollection, ITag, IUpdateTagsParams } from './types';
 
 export class RaindropClient {
   private api: RaindropAPI;

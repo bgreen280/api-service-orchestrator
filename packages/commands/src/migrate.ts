@@ -1,7 +1,8 @@
-import type { IAuthConfig, IConnectorConfig, ICommandResult } from '@apiso/core';
 import { RaindropClient } from '@apiso/raindrop';
 import { YouTubeClient } from '@apiso/youtube';
 import { constructRaindropFromYoutubePlaylistItem } from './utils';
+import type { IAuthConfig, IConnectorConfig } from '@apiso/core';
+import type { ICommandResult } from './types';
 
 export async function migrateYoutubePlaylistItemsToRaindrop(
   youtubeAuthConfig: IAuthConfig,

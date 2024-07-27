@@ -1,8 +1,5 @@
 import fs from 'fs';
-
-interface FileReadOptions {
-  encoding: BufferEncoding;
-}
+import { FileReadOptions } from './types';
 
 /**
  * Read the contents of a file synchronously.
